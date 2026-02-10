@@ -60,14 +60,40 @@
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/mutedCountText"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="0 uygulama seçili"
-                android:textSize="13sp"
-                android:textColor="@color/text_hint"
-                android:layout_marginTop="8dp" />
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp">
+
+                <TextView
+                    android:id="@+id/mutedCountText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="0 uygulama seçili"
+                    android:textSize="13sp"
+                    android:textColor="@color/text_hint" />
+
+                <TextView
+                    android:id="@+id/totalBlockedText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0 engellendi"
+                    android:textSize="13sp"
+                    android:textColor="@color/accent"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/settingsButton"
+                style="@style/Widget.Material3.Button.TonalButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="Gelişmiş Ayarlar"
+                app:icon="@android:drawable/ic_menu_preferences" />
 
         </LinearLayout>
 

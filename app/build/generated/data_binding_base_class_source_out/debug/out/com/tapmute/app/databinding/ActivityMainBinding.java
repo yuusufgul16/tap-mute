@@ -12,6 +12,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.materialswitch.MaterialSwitch;
 import com.tapmute.app.R;
@@ -36,22 +37,31 @@ public final class ActivityMainBinding implements ViewBinding {
   public final SearchView searchView;
 
   @NonNull
+  public final MaterialButton settingsButton;
+
+  @NonNull
   public final MaterialCardView statusCard;
 
   @NonNull
   public final TextView statusText;
 
+  @NonNull
+  public final TextView totalBlockedText;
+
   private ActivityMainBinding(@NonNull LinearLayout rootView, @NonNull RecyclerView appList,
       @NonNull MaterialSwitch globalMuteSwitch, @NonNull TextView mutedCountText,
-      @NonNull SearchView searchView, @NonNull MaterialCardView statusCard,
-      @NonNull TextView statusText) {
+      @NonNull SearchView searchView, @NonNull MaterialButton settingsButton,
+      @NonNull MaterialCardView statusCard, @NonNull TextView statusText,
+      @NonNull TextView totalBlockedText) {
     this.rootView = rootView;
     this.appList = appList;
     this.globalMuteSwitch = globalMuteSwitch;
     this.mutedCountText = mutedCountText;
     this.searchView = searchView;
+    this.settingsButton = settingsButton;
     this.statusCard = statusCard;
     this.statusText = statusText;
+    this.totalBlockedText = totalBlockedText;
   }
 
   @Override
@@ -105,6 +115,12 @@ public final class ActivityMainBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.settingsButton;
+      MaterialButton settingsButton = ViewBindings.findChildViewById(rootView, id);
+      if (settingsButton == null) {
+        break missingId;
+      }
+
       id = R.id.statusCard;
       MaterialCardView statusCard = ViewBindings.findChildViewById(rootView, id);
       if (statusCard == null) {
@@ -117,8 +133,14 @@ public final class ActivityMainBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.totalBlockedText;
+      TextView totalBlockedText = ViewBindings.findChildViewById(rootView, id);
+      if (totalBlockedText == null) {
+        break missingId;
+      }
+
       return new ActivityMainBinding((LinearLayout) rootView, appList, globalMuteSwitch,
-          mutedCountText, searchView, statusCard, statusText);
+          mutedCountText, searchView, settingsButton, statusCard, statusText, totalBlockedText);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

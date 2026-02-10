@@ -48,18 +48,18 @@ class MuteWidget : AppWidgetProvider() {
     ) {
         val prefs = MutePreferences(context)
         val isMuted = prefs.isGlobalMuteEnabled()
-        val mutedCount = prefs.getMutedApps().size
+        val totalBlocked = prefs.getTotalMuteCount()
 
         val views = RemoteViews(context.packageName, R.layout.widget_mute)
 
         // Update UI based on state
         if (isMuted) {
             views.setTextViewText(R.id.widgetStatus, "🔇 Sessiz")
-            views.setTextViewText(R.id.widgetCount, "$mutedCount uygulama")
+            views.setTextViewText(R.id.widgetCount, "$totalBlocked engellendi")
             views.setInt(R.id.widgetBackground, "setBackgroundResource", R.drawable.widget_bg_active)
         } else {
             views.setTextViewText(R.id.widgetStatus, "🔔 Açık")
-            views.setTextViewText(R.id.widgetCount, "$mutedCount uygulama")
+            views.setTextViewText(R.id.widgetCount, "$totalBlocked engellendi")
             views.setInt(R.id.widgetBackground, "setBackgroundResource", R.drawable.widget_bg_inactive)
         }
 

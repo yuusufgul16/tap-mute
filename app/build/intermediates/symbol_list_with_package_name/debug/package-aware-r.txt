@@ -3490,6 +3490,7 @@ id search_voice_btn
 id select_dialog_listview
 id selected
 id selection_type
+id settingsButton
 id sharedValueSet
 id sharedValueUnset
 id shortcut
@@ -3567,6 +3568,7 @@ id title_template
 id toggle
 id top
 id topPanel
+id totalBlockedText
 id touch_outside
 id transitionToEnd
 id transitionToStart

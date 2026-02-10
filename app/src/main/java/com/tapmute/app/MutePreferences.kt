@@ -8,11 +8,6 @@ class MutePreferences(context: Context) {
     private val prefs: SharedPreferences =
         context.getSharedPreferences("tapmute_prefs", Context.MODE_PRIVATE)
 
-    companion object {
-        private const val KEY_MUTED_APPS = "muted_apps"
-        private const val KEY_GLOBAL_MUTE = "global_mute_enabled"
-    }
-
     fun addMutedApp(packageName: String) {
         val apps = getMutedApps().toMutableSet()
         apps.add(packageName)
@@ -31,6 +26,75 @@ class MutePreferences(context: Context) {
 
     fun getMutedApps(): Set<String> {
         return prefs.getStringSet(KEY_MUTED_APPS, emptySet()) ?: emptySet()
+    }
+
+    companion object {
+        private const val KEY_MUTED_APPS = "muted_apps"
+        private const val KEY_GLOBAL_MUTE = "global_mute_enabled"
+        private const val KEY_KEYWORDS = "mute_keywords"
+        private const val KEY_SCHEDULE_ENABLED = "schedule_enabled"
+        private const val KEY_SCHEDULE_START_H = "schedule_start_h"
+        private const val KEY_SCHEDULE_START_M = "schedule_start_m"
+        private const val KEY_SCHEDULE_END_H = "schedule_end_h"
+        private const val KEY_SCHEDULE_END_M = "schedule_end_m"
+        private const val PREF_STATS_PREFIX = "stats_"
+    }
+
+    // --- Keywords ---
+    fun addKeyword(word: String) {
+        val keywords = getKeywords().toMutableSet()
+        keywords.add(word.lowercase())
+        prefs.edit().putStringSet(KEY_KEYWORDS, keywords).apply()
+    }
+
+    fun removeKeyword(word: String) {
+        val keywords = getKeywords().toMutableSet()
+        keywords.remove(word.lowercase())
+        prefs.edit().putStringSet(KEY_KEYWORDS, keywords).apply()
+    }
+
+    fun getKeywords(): Set<String> {
+        return prefs.getStringSet(KEY_KEYWORDS, emptySet()) ?: emptySet()
+    }
+
+    // --- Statistics ---
+    fun incrementMuteCount(packageName: String) {
+        val current = getMuteCount(packageName)
+        prefs.edit().putInt(PREF_STATS_PREFIX + packageName, current + 1).apply()
+    }
+
+    fun getMuteCount(packageName: String): Int {
+        return prefs.getInt(PREF_STATS_PREFIX + packageName, 0)
+    }
+
+    fun getTotalMuteCount(): Int {
+        return prefs.all.filterKeys { it.startsWith(PREF_STATS_PREFIX) }
+            .values.filterIsInstance<Int>().sum()
+    }
+
+    // --- Schedule ---
+    fun setScheduleEnabled(enabled: Boolean) {
+        prefs.edit().putBoolean(KEY_SCHEDULE_ENABLED, enabled).apply()
+    }
+
+    fun isScheduleEnabled(): Boolean = prefs.getBoolean(KEY_SCHEDULE_ENABLED, false)
+
+    fun setSchedule(startH: Int, startM: Int, endH: Int, endM: Int) {
+        prefs.edit()
+            .putInt(KEY_SCHEDULE_START_H, startH)
+            .putInt(KEY_SCHEDULE_START_M, startM)
+            .putInt(KEY_SCHEDULE_END_H, endH)
+            .putInt(KEY_SCHEDULE_END_M, endM)
+            .apply()
+    }
+
+    fun getSchedule(): IntArray {
+        return intArrayOf(
+            prefs.getInt(KEY_SCHEDULE_START_H, 0),
+            prefs.getInt(KEY_SCHEDULE_START_M, 0),
+            prefs.getInt(KEY_SCHEDULE_END_H, 23),
+            prefs.getInt(KEY_SCHEDULE_END_M, 59)
+        )
     }
 
     fun isGlobalMuteEnabled(): Boolean {

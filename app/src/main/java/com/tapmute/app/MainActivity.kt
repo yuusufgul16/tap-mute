@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity() {
         setupRecyclerView()
         setupSearch()
         setupGlobalToggle()
+        setupSettings()
         loadInstalledApps()
 
         // Check notification listener permission
@@ -81,6 +82,51 @@ class MainActivity : AppCompatActivity() {
         updateGlobalToggleState()
     }
 
+    private fun setupSettings() {
+        binding.settingsButton.setOnClickListener {
+            showSettingsDialog()
+        }
+    }
+
+    private fun showSettingsDialog() {
+        val items = arrayOf("Kelime Filtresi (Smart Filter)")
+        MaterialAlertDialogBuilder(this)
+            .setTitle("Gelişmiş Ayarlar")
+            .setItems(items) { _, which ->
+                when (which) {
+                    0 -> showKeywordsDialog()
+                }
+            }
+            .setPositiveButton("Kapat", null)
+            .show()
+    }
+
+    private fun showKeywordsDialog() {
+        val keywords = mutePrefs.getKeywords().toMutableList()
+        val adapter = android.widget.ArrayAdapter(this, android.R.layout.simple_list_item_1, keywords)
+        
+        val input = android.widget.EditText(this)
+        input.hint = "Kelime ekle (örn: acil)"
+        
+        MaterialAlertDialogBuilder(this)
+            .setTitle("Kelime Filtresi")
+            .setMessage("Bu kelimeleri içeren bildirimlere HER DURUMDA izin verilir.")
+            .setView(input)
+            .setPositiveButton("Ekle") { _, _ ->
+                val word = input.text.toString()
+                if (word.isNotBlank()) {
+                    mutePrefs.addKeyword(word)
+                    Toast.makeText(this, "Eklendi: $word", Toast.LENGTH_SHORT).show()
+                }
+            }
+            .setNeutralButton("Temizle") { _, _ ->
+                keywords.forEach { mutePrefs.removeKeyword(it) }
+                Toast.makeText(this, "Filtre temizlendi", Toast.LENGTH_SHORT).show()
+            }
+            .setNegativeButton("İptal", null)
+            .show()
+    }
+
     private fun updateGlobalToggleState() {
         val enabled = mutePrefs.isGlobalMuteEnabled() && isNotificationListenerEnabled()
         binding.globalMuteSwitch.isChecked = enabled
@@ -98,6 +144,7 @@ class MainActivity : AppCompatActivity() {
     private fun updateMutedCount() {
         val count = mutePrefs.getMutedApps().size
         binding.mutedCountText.text = "$count uygulama seçili"
+        binding.totalBlockedText.text = "${mutePrefs.getTotalMuteCount()} engellendi"
     }
 
     private fun loadInstalledApps() {
