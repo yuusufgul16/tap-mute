@@ -30,10 +30,37 @@ class MainActivity : AppCompatActivity() {
         setupSettings()
         
         loadDashboardApps()
-        updateUIState()
-
+        // Check permission
         if (!isNotificationListenerEnabled()) {
             showPermissionDialog()
+        } else {
+            checkNotificationPermission()
+            checkBatteryOptimization()
+        }
+    }
+
+    private fun checkNotificationPermission() {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+            if (checkSelfPermission(android.Manifest.permission.POST_NOTIFICATIONS) != android.content.pm.PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(arrayOf(android.Manifest.permission.POST_NOTIFICATIONS), 101)
+            }
+        }
+    }
+
+    private fun checkBatteryOptimization() {
+        val pm = getSystemService(android.content.Context.POWER_SERVICE) as android.os.PowerManager
+        if (!pm.isIgnoringBatteryOptimizations(packageName)) {
+            MaterialAlertDialogBuilder(this)
+                .setTitle("Kesintisiz Çalışma")
+                .setMessage("TapMute'un arka planda kapanmaması için pil tasarrufunu 'Kısıtlanmamış' olarak ayarlamanız önerilir.")
+                .setPositiveButton("Ayarlara Git") { _, _ ->
+                    val intent = Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS).apply {
+                        data = android.net.Uri.parse("package:$packageName")
+                    }
+                    startActivity(intent)
+                }
+                .setNegativeButton("Gerek Yok", null)
+                .show()
         }
     }
 
