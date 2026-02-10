@@ -5,11 +5,10 @@ import android.content.Intent
 import android.content.pm.ApplicationInfo
 import android.os.Bundle
 import android.provider.Settings
-import android.text.TextUtils
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.SearchView
-import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.tapmute.app.databinding.ActivityMainBinding
 
@@ -17,8 +16,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var mutePrefs: MutePreferences
-    private lateinit var adapter: AppListAdapter
-    private var appList = mutableListOf<AppInfo>()
+    private lateinit var quickToggleAdapter: AppListAdapter // Reusing adapter with custom layout eventually
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,11 +25,13 @@ class MainActivity : AppCompatActivity() {
 
         mutePrefs = MutePreferences(this)
 
-        setupRecyclerView()
-        setupSearch()
-        setupGlobalToggle()
+        setupMasterControl()
+        setupDashboardGrid()
+        setupNavigation()
         setupSettings()
-        loadInstalledApps()
+        
+        // Initial state update
+        updateUIState()
 
         // Check notification listener permission
         if (!isNotificationListenerEnabled()) {
@@ -41,51 +41,98 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        // Refresh permission state
-        updateGlobalToggleState()
+        updateUIState()
+        loadDashboardApps()
     }
 
-    private fun setupRecyclerView() {
-        adapter = AppListAdapter(appList) { app, isMuted ->
+    private fun setupMasterControl() {
+        binding.masterButtonContainer.setOnClickListener {
+            // Click animation
+            val animation = android.view.animation.AnimationUtils.loadAnimation(this, R.anim.scale_click)
+            binding.masterButtonContainer.startAnimation(animation)
+
+            val isEnabled = mutePrefs.isGlobalMuteEnabled()
+            val newState = !isEnabled
+            
+            if (newState && !isNotificationListenerEnabled()) {
+                showPermissionDialog()
+                return@setOnClickListener
+            }
+            
+            mutePrefs.setGlobalMuteEnabled(newState)
+            updateUIState()
+            
+            val msg = if (newState) "Sessiz mod aktif" else "Sessiz mod kapalı"
+            Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun setupDashboardGrid() {
+        quickToggleAdapter = AppListAdapter(mutableListOf(), isDashboardMode = true) { app, isMuted ->
             if (isMuted) {
                 mutePrefs.addMutedApp(app.packageName)
             } else {
                 mutePrefs.removeMutedApp(app.packageName)
             }
-            updateMutedCount()
+            updateUIState()
         }
-        binding.appList.layoutManager = LinearLayoutManager(this)
-        binding.appList.adapter = adapter
+        binding.quickTogglesGrid.layoutManager = GridLayoutManager(this, 2)
+        binding.quickTogglesGrid.adapter = quickToggleAdapter
+        loadDashboardApps()
     }
 
-    private fun setupSearch() {
-        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?) = false
-            override fun onQueryTextChange(newText: String?): Boolean {
-                adapter.filter(newText ?: "")
-                return true
+    private fun loadDashboardApps() {
+        val pm = packageManager
+        val dashboardPackageNames = mutePrefs.getDashboardApps()
+        val dashboardApps = mutableListOf<AppInfo>()
+
+        for (pkg in dashboardPackageNames) {
+            try {
+                val appInfo = pm.getApplicationInfo(pkg, 0)
+                val appName = pm.getApplicationLabel(appInfo).toString()
+                val icon = pm.getApplicationIcon(appInfo)
+                val isMuted = mutePrefs.isMuted(pkg)
+                dashboardApps.add(AppInfo(appName, pkg, icon, isMuted))
+            } catch (e: Exception) {
+                // App might have been uninstalled
+                Log.e("TapMute", "Dashboard app not found: $pkg")
             }
-        })
+        }
+        quickToggleAdapter.updateApps(dashboardApps)
     }
 
-    private fun setupGlobalToggle() {
-        binding.globalMuteSwitch.isChecked = mutePrefs.isGlobalMuteEnabled()
-        binding.globalMuteSwitch.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked && !isNotificationListenerEnabled()) {
-                binding.globalMuteSwitch.isChecked = false
-                showPermissionDialog()
-                return@setOnCheckedChangeListener
-            }
-            mutePrefs.setGlobalMuteEnabled(isChecked)
-            updateGlobalToggleState()
+    private fun setupNavigation() {
+        binding.manageAppsButton.setOnClickListener {
+            // Intent to ManageAppsActivity (To be created)
+            val intent = Intent(this, ManageAppsActivity::class.java)
+            startActivity(intent)
         }
-        updateGlobalToggleState()
     }
 
     private fun setupSettings() {
         binding.settingsButton.setOnClickListener {
             showSettingsDialog()
         }
+    }
+
+    private fun updateUIState() {
+        val isEnabled = mutePrefs.isGlobalMuteEnabled() && isNotificationListenerEnabled()
+        
+        if (isEnabled) {
+            binding.statusText.text = "Sessiz Mod Aktif"
+            binding.statusText.setTextColor(getColor(R.color.neon_teal))
+            binding.masterIcon.setImageResource(android.R.drawable.ic_lock_silent_mode)
+            binding.masterIcon.imageTintList = android.content.res.ColorStateList.valueOf(getColor(R.color.bg_dark))
+            binding.masterButtonContainer.alpha = 1.0f
+        } else {
+            binding.statusText.text = "Sessiz Mod Kapalı"
+            binding.statusText.setTextColor(getColor(R.color.text_secondary))
+            binding.masterIcon.setImageResource(android.R.drawable.ic_lock_silent_mode_off)
+            binding.masterIcon.imageTintList = android.content.res.ColorStateList.valueOf(getColor(R.color.text_secondary))
+            binding.masterButtonContainer.alpha = 0.5f // Dimmed look when off
+        }
+        
+        binding.totalBlockedText.text = "${mutePrefs.getTotalMuteCount()} engellendi"
     }
 
     private fun showSettingsDialog() {
@@ -105,7 +152,6 @@ class MainActivity : AppCompatActivity() {
         val keywords = mutePrefs.getKeywords().toMutableList()
         val suggestions = listOf("acil", "neredesin", "yavrum", "canım", "doktor", "hastane", "çabuk", "aç şu telefonu")
         
-        // Building a string to show current keywords
         val currentText = if (keywords.isEmpty()) "Henüz kelime eklenmedi." else keywords.joinToString(", ")
         
         val input = android.widget.EditText(this).apply {
@@ -118,14 +164,12 @@ class MainActivity : AppCompatActivity() {
             setPadding(60, 20, 60, 20)
             addView(input)
             
-            // Current keywords description
             addView(android.widget.TextView(this@MainActivity).apply {
                 text = "\nAktif Filtreler:\n$currentText"
                 textSize = 14f
                 setTextColor(getColor(R.color.text_secondary))
             })
 
-            // Suggestions title
             addView(android.widget.TextView(this@MainActivity).apply {
                 text = "\nÖneriler (Tıkla ve Ekle):"
                 textSize = 14f
@@ -133,7 +177,6 @@ class MainActivity : AppCompatActivity() {
                 setTextColor(getColor(R.color.text_primary))
             })
 
-            // Flow layout for suggestions (using a simple LinearLayout wrapping for now)
             val suggestionsLayout = android.widget.LinearLayout(this@MainActivity).apply {
                 orientation = android.widget.LinearLayout.VERTICAL
             }
@@ -152,7 +195,6 @@ class MainActivity : AppCompatActivity() {
                         setOnClickListener {
                             mutePrefs.addKeyword(word)
                             Toast.makeText(this@MainActivity, "Eklendi: $word", Toast.LENGTH_SHORT).show()
-                            // Refresh dialog or close
                         }
                     }
                     row.addView(chip)
@@ -164,65 +206,19 @@ class MainActivity : AppCompatActivity() {
         
         MaterialAlertDialogBuilder(this)
             .setTitle("Kelime Filtresi (Smart Filter)")
-            .setMessage("Büyük/küçük harf duyarsızdır (Acil = acil). Bu kelimeleri içeren bildirimlere izin verilir.")
+            .setMessage("Büyük/küçük harf duyarsızdır. Bu kelimeleri içeren bildirimlere izin verilir.")
             .setView(container)
             .setPositiveButton("Ekle") { _, _ ->
                 val word = input.text.toString().trim().lowercase()
                 if (word.isNotBlank()) {
                     mutePrefs.addKeyword(word)
-                    Toast.makeText(this, "Eklendi: $word", Toast.LENGTH_SHORT).show()
                 }
             }
             .setNeutralButton("Temizle") { _, _ ->
                 keywords.forEach { mutePrefs.removeKeyword(it) }
-                Toast.makeText(this, "Filtre temizlendi", Toast.LENGTH_SHORT).show()
             }
             .setNegativeButton("Kapat", null)
             .show()
-    }
-
-    private fun updateGlobalToggleState() {
-        val enabled = mutePrefs.isGlobalMuteEnabled() && isNotificationListenerEnabled()
-        binding.globalMuteSwitch.isChecked = enabled
-
-        if (enabled) {
-            binding.statusText.text = "🔇 Sessiz mod aktif"
-            binding.statusCard.setCardBackgroundColor(getColor(R.color.status_active))
-        } else {
-            binding.statusText.text = "🔔 Bildirimler açık"
-            binding.statusCard.setCardBackgroundColor(getColor(R.color.status_inactive))
-        }
-        updateMutedCount()
-    }
-
-    private fun updateMutedCount() {
-        val count = mutePrefs.getMutedApps().size
-        binding.mutedCountText.text = "$count uygulama seçili"
-        binding.totalBlockedText.text = "${mutePrefs.getTotalMuteCount()} engellendi"
-    }
-
-    private fun loadInstalledApps() {
-        val pm = packageManager
-        val installedApps = pm.getInstalledApplications(0)
-
-        appList.clear()
-        for (appInfo in installedApps) {
-            // Skip system apps and self
-            if (appInfo.flags and ApplicationInfo.FLAG_SYSTEM != 0) continue
-            if (appInfo.packageName == packageName) continue
-
-            val appName = pm.getApplicationLabel(appInfo).toString()
-            val icon = pm.getApplicationIcon(appInfo)
-            val isMuted = mutePrefs.isMuted(appInfo.packageName)
-
-            appList.add(AppInfo(appName, appInfo.packageName, icon, isMuted))
-        }
-
-        // Sort: muted first, then alphabetical
-        appList.sortWith(compareByDescending<AppInfo> { it.isMuted }.thenBy { it.appName })
-
-        adapter.updateApps(appList)
-        updateMutedCount()
     }
 
     private fun isNotificationListenerEnabled(): Boolean {
@@ -234,14 +230,11 @@ class MainActivity : AppCompatActivity() {
     private fun showPermissionDialog() {
         MaterialAlertDialogBuilder(this)
             .setTitle("Bildirim Erişimi Gerekli")
-            .setMessage("TapMute'un bildirimleri engelleyebilmesi için bildirim erişim izni vermeniz gerekiyor.\n\nAyarlar > TapMute > İzin Ver")
+            .setMessage("TapMute'un çalışabilmesi için bildirim erişim izni vermeniz gerekiyor.")
             .setPositiveButton("Ayarlara Git") { _, _ ->
                 startActivity(Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS))
             }
-            .setNegativeButton("Sonra") { dialog, _ ->
-                dialog.dismiss()
-                Toast.makeText(this, "İzin verilmeden uygulama çalışmaz", Toast.LENGTH_LONG).show()
-            }
+            .setNegativeButton("Sonra", null)
             .setCancelable(false)
             .show()
     }

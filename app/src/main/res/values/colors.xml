@@ -3,14 +3,26 @@
     <!-- Base colors - Dark theme -->
     <color name="background">#FF121212</color>
     <color name="card_background">#FF1E1E1E</color>
-    <color name="text_primary">#FFFFFFFF</color>
-    <color name="text_secondary">#FFB0B0B0</color>
     <color name="text_hint">#FF707070</color>
 
-    <!-- Status colors -->
-    <color name="status_active">#FF1B5E20</color>
-    <color name="status_inactive">#FF1E1E1E</color>
+    <!-- Mockup Modern Palette -->
+    <color name="bg_dark">#0A1A1A</color>
+    <color name="card_bg">#132626</color>
+    <color name="neon_teal">#1DE9B6</color>
+    <color name="teal_glow">#401DE9B6</color>
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_secondary">#7A8A8A</color>
 
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    
+    <color name="status_active">#132626</color>
+    <color name="status_inactive">#132626</color>
     <!-- Accent -->
     <color name="accent">#FF00E676</color>
     <color name="accent_dark">#FF00C853</color>

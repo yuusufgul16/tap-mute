@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from C:\Users\zyusu\.gemini\antigravity\scratch\tap-mute\app\src\main\AndroidManifest.xml:2:1-52:12
-INJECTED from C:\Users\zyusu\.gemini\antigravity\scratch\tap-mute\app\src\main\AndroidManifest.xml:2:1-52:12
-INJECTED from C:\Users\zyusu\.gemini\antigravity\scratch\tap-mute\app\src\main\AndroidManifest.xml:2:1-52:12
-INJECTED from C:\Users\zyusu\.gemini\antigravity\scratch\tap-mute\app\src\main\AndroidManifest.xml:2:1-52:12
+ADDED from C:\Users\zyusu\.gemini\antigravity\scratch\tap-mute\app\src\main\AndroidManifest.xml:2:1-58:12
+INJECTED from C:\Users\zyusu\.gemini\antigravity\scratch\tap-mute\app\src\main\AndroidManifest.xml:2:1-58:12
+INJECTED from C:\Users\zyusu\.gemini\antigravity\scratch\tap-mute\app\src\main\AndroidManifest.xml:2:1-58:12
+INJECTED from C:\Users\zyusu\.gemini\antigravity\scratch\tap-mute\app\src\main\AndroidManifest.xml:2:1-58:12
 MERGED from [androidx.databinding:viewbinding:8.2.2] C:\Users\zyusu\.gradle\caches\transforms-3\b93974932ecdca12f6bb7955c79b1b88\transformed\viewbinding-8.2.2\AndroidManifest.xml:2:1-7:12
 MERGED from [com.google.android.material:material:1.11.0] C:\Users\zyusu\.gradle\caches\transforms-3\3c6da16fc08c5e7b7caed394bbbfefaa\transformed\material-1.11.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] C:\Users\zyusu\.gradle\caches\transforms-3\488aad099d5ebc6b5042a6b3b7d174ef\transformed\constraintlayout-2.1.4\AndroidManifest.xml:2:1-11:12
@@ -64,8 +64,8 @@ ADDED from C:\Users\zyusu\.gemini\antigravity\scratch\tap-mute\app\src\main\Andr
 	android:name
 		ADDED from C:\Users\zyusu\.gemini\antigravity\scratch\tap-mute\app\src\main\AndroidManifest.xml:6:22-74
 application
-ADDED from C:\Users\zyusu\.gemini\antigravity\scratch\tap-mute\app\src\main\AndroidManifest.xml:9:5-50:19
-INJECTED from C:\Users\zyusu\.gemini\antigravity\scratch\tap-mute\app\src\main\AndroidManifest.xml:9:5-50:19
+ADDED from C:\Users\zyusu\.gemini\antigravity\scratch\tap-mute\app\src\main\AndroidManifest.xml:9:5-56:19
+INJECTED from C:\Users\zyusu\.gemini\antigravity\scratch\tap-mute\app\src\main\AndroidManifest.xml:9:5-56:19
 MERGED from [com.google.android.material:material:1.11.0] C:\Users\zyusu\.gradle\caches\transforms-3\3c6da16fc08c5e7b7caed394bbbfefaa\transformed\material-1.11.0\AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.material:material:1.11.0] C:\Users\zyusu\.gradle\caches\transforms-3\3c6da16fc08c5e7b7caed394bbbfefaa\transformed\material-1.11.0\AndroidManifest.xml:22:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] C:\Users\zyusu\.gradle\caches\transforms-3\488aad099d5ebc6b5042a6b3b7d174ef\transformed\constraintlayout-2.1.4\AndroidManifest.xml:9:5-20
@@ -118,38 +118,48 @@ category#android.intent.category.LAUNCHER
 ADDED from C:\Users\zyusu\.gemini\antigravity\scratch\tap-mute\app\src\main\AndroidManifest.xml:24:17-77
 	android:name
 		ADDED from C:\Users\zyusu\.gemini\antigravity\scratch\tap-mute\app\src\main\AndroidManifest.xml:24:27-74
+activity#com.tapmute.app.ManageAppsActivity
+ADDED from C:\Users\zyusu\.gemini\antigravity\scratch\tap-mute\app\src\main\AndroidManifest.xml:28:9-32:52
+	android:label
+		ADDED from C:\Users\zyusu\.gemini\antigravity\scratch\tap-mute\app\src\main\AndroidManifest.xml:31:13-47
+	android:exported
+		ADDED from C:\Users\zyusu\.gemini\antigravity\scratch\tap-mute\app\src\main\AndroidManifest.xml:30:13-37
+	android:theme
+		ADDED from C:\Users\zyusu\.gemini\antigravity\scratch\tap-mute\app\src\main\AndroidManifest.xml:32:13-49
+	android:name
+		ADDED from C:\Users\zyusu\.gemini\antigravity\scratch\tap-mute\app\src\main\AndroidManifest.xml:29:13-47
 service#com.tapmute.app.MuteNotificationService
-ADDED from C:\Users\zyusu\.gemini\antigravity\scratch\tap-mute\app\src\main\AndroidManifest.xml:29:9-36:19
+ADDED from C:\Users\zyusu\.gemini\antigravity\scratch\tap-mute\app\src\main\AndroidManifest.xml:35:9-42:19
 	android:exported
-		ADDED from C:\Users\zyusu\.gemini\antigravity\scratch\tap-mute\app\src\main\AndroidManifest.xml:31:13-36
+		ADDED from C:\Users\zyusu\.gemini\antigravity\scratch\tap-mute\app\src\main\AndroidManifest.xml:37:13-36
 	android:permission
-		ADDED from C:\Users\zyusu\.gemini\antigravity\scratch\tap-mute\app\src\main\AndroidManifest.xml:32:13-87
+		ADDED from C:\Users\zyusu\.gemini\antigravity\scratch\tap-mute\app\src\main\AndroidManifest.xml:38:13-87
 	android:name
-		ADDED from C:\Users\zyusu\.gemini\antigravity\scratch\tap-mute\app\src\main\AndroidManifest.xml:30:13-52
+		ADDED from C:\Users\zyusu\.gemini\antigravity\scratch\tap-mute\app\src\main\AndroidManifest.xml:36:13-52
 intent-filter#action:name:android.service.notification.NotificationListenerService
-ADDED from C:\Users\zyusu\.gemini\antigravity\scratch\tap-mute\app\src\main\AndroidManifest.xml:33:13-35:29
+ADDED from C:\Users\zyusu\.gemini\antigravity\scratch\tap-mute\app\src\main\AndroidManifest.xml:39:13-41:29
 action#android.service.notification.NotificationListenerService
-ADDED from C:\Users\zyusu\.gemini\antigravity\scratch\tap-mute\app\src\main\AndroidManifest.xml:34:17-99
+ADDED from C:\Users\zyusu\.gemini\antigravity\scratch\tap-mute\app\src\main\AndroidManifest.xml:40:17-99
 	android:name
-		ADDED from C:\Users\zyusu\.gemini\antigravity\scratch\tap-mute\app\src\main\AndroidManifest.xml:34:25-96
+		ADDED from C:\Users\zyusu\.gemini\antigravity\scratch\tap-mute\app\src\main\AndroidManifest.xml:40:25-96
 receiver#com.tapmute.app.MuteWidget
-ADDED from C:\Users\zyusu\.gemini\antigravity\scratch\tap-mute\app\src\main\AndroidManifest.xml:39:9-48:20
+ADDED from C:\Users\zyusu\.gemini\antigravity\scratch\tap-mute\app\src\main\AndroidManifest.xml:45:9-54:20
 	android:exported
-		ADDED from C:\Users\zyusu\.gemini\antigravity\scratch\tap-mute\app\src\main\AndroidManifest.xml:41:13-36
+		ADDED from C:\Users\zyusu\.gemini\antigravity\scratch\tap-mute\app\src\main\AndroidManifest.xml:47:13-36
 	android:name
-		ADDED from C:\Users\zyusu\.gemini\antigravity\scratch\tap-mute\app\src\main\AndroidManifest.xml:40:13-39
+		ADDED from C:\Users\zyusu\.gemini\antigravity\scratch\tap-mute\app\src\main\AndroidManifest.xml:46:13-39
 intent-filter#action:name:android.appwidget.action.APPWIDGET_UPDATE
-ADDED from C:\Users\zyusu\.gemini\antigravity\scratch\tap-mute\app\src\main\AndroidManifest.xml:42:13-44:29
+ADDED from C:\Users\zyusu\.gemini\antigravity\scratch\tap-mute\app\src\main\AndroidManifest.xml:48:13-50:29
 action#android.appwidget.action.APPWIDGET_UPDATE
-ADDED from C:\Users\zyusu\.gemini\antigravity\scratch\tap-mute\app\src\main\AndroidManifest.xml:43:17-84
+ADDED from C:\Users\zyusu\.gemini\antigravity\scratch\tap-mute\app\src\main\AndroidManifest.xml:49:17-84
 	android:name
-		ADDED from C:\Users\zyusu\.gemini\antigravity\scratch\tap-mute\app\src\main\AndroidManifest.xml:43:25-81
+		ADDED from C:\Users\zyusu\.gemini\antigravity\scratch\tap-mute\app\src\main\AndroidManifest.xml:49:25-81
 meta-data#android.appwidget.provider
-ADDED from C:\Users\zyusu\.gemini\antigravity\scratch\tap-mute\app\src\main\AndroidManifest.xml:45:13-47:60
+ADDED from C:\Users\zyusu\.gemini\antigravity\scratch\tap-mute\app\src\main\AndroidManifest.xml:51:13-53:60
 	android:resource
-		ADDED from C:\Users\zyusu\.gemini\antigravity\scratch\tap-mute\app\src\main\AndroidManifest.xml:47:17-57
+		ADDED from C:\Users\zyusu\.gemini\antigravity\scratch\tap-mute\app\src\main\AndroidManifest.xml:53:17-57
 	android:name
-		ADDED from C:\Users\zyusu\.gemini\antigravity\scratch\tap-mute\app\src\main\AndroidManifest.xml:46:17-58
+		ADDED from C:\Users\zyusu\.gemini\antigravity\scratch\tap-mute\app\src\main\AndroidManifest.xml:52:17-58
 uses-sdk
 INJECTED from C:\Users\zyusu\.gemini\antigravity\scratch\tap-mute\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\Users\zyusu\.gemini\antigravity\scratch\tap-mute\app\src\main\AndroidManifest.xml

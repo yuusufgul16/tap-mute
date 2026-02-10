@@ -25,6 +25,12 @@
             </intent-filter>
         </activity>
 
+        <activity
+            android:name=".ManageAppsActivity"
+            android:exported="false"
+            android:label="Uygulamaları Yönet"
+            android:theme="@style/Theme.TapMute" />
+
         <!-- Notification Listener Service -->
         <service
             android:name=".MuteNotificationService"

@@ -4,17 +4,18 @@ package com.tapmute.app.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.SearchView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewbinding.ViewBinding;
 import androidx.viewbinding.ViewBindings;
-import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
-import com.google.android.material.materialswitch.MaterialSwitch;
 import com.tapmute.app.R;
 import java.lang.NullPointerException;
 import java.lang.Override;
@@ -22,25 +23,31 @@ import java.lang.String;
 
 public final class ActivityMainBinding implements ViewBinding {
   @NonNull
-  private final LinearLayout rootView;
+  private final ConstraintLayout rootView;
 
   @NonNull
-  public final RecyclerView appList;
+  public final LinearLayout header;
 
   @NonNull
-  public final MaterialSwitch globalMuteSwitch;
+  public final TextView manageAppsButton;
 
   @NonNull
-  public final TextView mutedCountText;
+  public final FrameLayout masterButtonContainer;
 
   @NonNull
-  public final SearchView searchView;
+  public final MaterialCardView masterCard;
 
   @NonNull
-  public final MaterialButton settingsButton;
+  public final ImageView masterIcon;
 
   @NonNull
-  public final MaterialCardView statusCard;
+  public final RecyclerView quickTogglesGrid;
+
+  @NonNull
+  public final LinearLayout quickTogglesHeader;
+
+  @NonNull
+  public final ImageButton settingsButton;
 
   @NonNull
   public final TextView statusText;
@@ -48,25 +55,28 @@ public final class ActivityMainBinding implements ViewBinding {
   @NonNull
   public final TextView totalBlockedText;
 
-  private ActivityMainBinding(@NonNull LinearLayout rootView, @NonNull RecyclerView appList,
-      @NonNull MaterialSwitch globalMuteSwitch, @NonNull TextView mutedCountText,
-      @NonNull SearchView searchView, @NonNull MaterialButton settingsButton,
-      @NonNull MaterialCardView statusCard, @NonNull TextView statusText,
+  private ActivityMainBinding(@NonNull ConstraintLayout rootView, @NonNull LinearLayout header,
+      @NonNull TextView manageAppsButton, @NonNull FrameLayout masterButtonContainer,
+      @NonNull MaterialCardView masterCard, @NonNull ImageView masterIcon,
+      @NonNull RecyclerView quickTogglesGrid, @NonNull LinearLayout quickTogglesHeader,
+      @NonNull ImageButton settingsButton, @NonNull TextView statusText,
       @NonNull TextView totalBlockedText) {
     this.rootView = rootView;
-    this.appList = appList;
-    this.globalMuteSwitch = globalMuteSwitch;
-    this.mutedCountText = mutedCountText;
-    this.searchView = searchView;
+    this.header = header;
+    this.manageAppsButton = manageAppsButton;
+    this.masterButtonContainer = masterButtonContainer;
+    this.masterCard = masterCard;
+    this.masterIcon = masterIcon;
+    this.quickTogglesGrid = quickTogglesGrid;
+    this.quickTogglesHeader = quickTogglesHeader;
     this.settingsButton = settingsButton;
-    this.statusCard = statusCard;
     this.statusText = statusText;
     this.totalBlockedText = totalBlockedText;
   }
 
   @Override
   @NonNull
-  public LinearLayout getRoot() {
+  public ConstraintLayout getRoot() {
     return rootView;
   }
 
@@ -91,39 +101,51 @@ public final class ActivityMainBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
-      id = R.id.appList;
-      RecyclerView appList = ViewBindings.findChildViewById(rootView, id);
-      if (appList == null) {
+      id = R.id.header;
+      LinearLayout header = ViewBindings.findChildViewById(rootView, id);
+      if (header == null) {
         break missingId;
       }
 
-      id = R.id.globalMuteSwitch;
-      MaterialSwitch globalMuteSwitch = ViewBindings.findChildViewById(rootView, id);
-      if (globalMuteSwitch == null) {
+      id = R.id.manageAppsButton;
+      TextView manageAppsButton = ViewBindings.findChildViewById(rootView, id);
+      if (manageAppsButton == null) {
         break missingId;
       }
 
-      id = R.id.mutedCountText;
-      TextView mutedCountText = ViewBindings.findChildViewById(rootView, id);
-      if (mutedCountText == null) {
+      id = R.id.masterButtonContainer;
+      FrameLayout masterButtonContainer = ViewBindings.findChildViewById(rootView, id);
+      if (masterButtonContainer == null) {
         break missingId;
       }
 
-      id = R.id.searchView;
-      SearchView searchView = ViewBindings.findChildViewById(rootView, id);
-      if (searchView == null) {
+      id = R.id.masterCard;
+      MaterialCardView masterCard = ViewBindings.findChildViewById(rootView, id);
+      if (masterCard == null) {
+        break missingId;
+      }
+
+      id = R.id.masterIcon;
+      ImageView masterIcon = ViewBindings.findChildViewById(rootView, id);
+      if (masterIcon == null) {
+        break missingId;
+      }
+
+      id = R.id.quickTogglesGrid;
+      RecyclerView quickTogglesGrid = ViewBindings.findChildViewById(rootView, id);
+      if (quickTogglesGrid == null) {
+        break missingId;
+      }
+
+      id = R.id.quickTogglesHeader;
+      LinearLayout quickTogglesHeader = ViewBindings.findChildViewById(rootView, id);
+      if (quickTogglesHeader == null) {
         break missingId;
       }
 
       id = R.id.settingsButton;
-      MaterialButton settingsButton = ViewBindings.findChildViewById(rootView, id);
+      ImageButton settingsButton = ViewBindings.findChildViewById(rootView, id);
       if (settingsButton == null) {
-        break missingId;
-      }
-
-      id = R.id.statusCard;
-      MaterialCardView statusCard = ViewBindings.findChildViewById(rootView, id);
-      if (statusCard == null) {
         break missingId;
       }
 
@@ -139,8 +161,9 @@ public final class ActivityMainBinding implements ViewBinding {
         break missingId;
       }
 
-      return new ActivityMainBinding((LinearLayout) rootView, appList, globalMuteSwitch,
-          mutedCountText, searchView, settingsButton, statusCard, statusText, totalBlockedText);
+      return new ActivityMainBinding((ConstraintLayout) rootView, header, manageAppsButton,
+          masterButtonContainer, masterCard, masterIcon, quickTogglesGrid, quickTogglesHeader,
+          settingsButton, statusText, totalBlockedText);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

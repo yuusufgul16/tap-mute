@@ -3,23 +3,45 @@
     <color name="accent">#FF00E676</color>
     <color name="accent_dark">#FF00C853</color>
     <color name="background">#FF121212</color>
+    <color name="bg_dark">#0A1A1A</color>
+    <color name="black">#FF000000</color>
     <color name="card_background">#FF1E1E1E</color>
+    <color name="card_bg">#132626</color>
+    <color name="neon_teal">#1DE9B6</color>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
     <color name="search_bg">#FF2A2A2A</color>
-    <color name="status_active">#FF1B5E20</color>
-    <color name="status_inactive">#FF1E1E1E</color>
+    <color name="status_active">#132626</color>
+    <color name="status_inactive">#132626</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#018786</color>
+    <color name="teal_glow">#401DE9B6</color>
     <color name="text_hint">#FF707070</color>
-    <color name="text_primary">#FFFFFFFF</color>
-    <color name="text_secondary">#FFB0B0B0</color>
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_secondary">#7A8A8A</color>
+    <color name="white">#FFFFFFFF</color>
     <color name="widget_active">#FF1B5E20</color>
     <color name="widget_inactive">#FF37474F</color>
     <string name="app_name">TapMute</string>
     <string name="widget_description">Tek tıkla bildirimleri sessize al</string>
     <style name="Theme.TapMute" parent="Theme.Material3.Dark.NoActionBar">
-        <item name="colorPrimary">@color/accent</item>
-        <item name="colorPrimaryDark">@color/accent_dark</item>
-        <item name="colorAccent">@color/accent</item>
-        <item name="android:windowBackground">@color/background</item>
-        <item name="android:statusBarColor">@color/background</item>
-        <item name="android:navigationBarColor">@color/background</item>
+        
+        <item name="colorPrimary">@color/neon_teal</item>
+        <item name="colorPrimaryDark">@color/bg_dark</item>
+        <item name="colorAccent">@color/neon_teal</item>
+        
+        <item name="android:windowBackground">@color/bg_dark</item>
+        <item name="android:statusBarColor">@color/bg_dark</item>
+        <item name="android:navigationBarColor">@color/bg_dark</item>
+        
+        
+        <item name="materialCardViewStyle">@style/Widget.App.Card</item>
+    </style>
+    <style name="Widget.App.Card" parent="Widget.Material3.CardView.Filled">
+        <item name="cardBackgroundColor">@color/card_bg</item>
+        <item name="cardCornerRadius">24dp</item>
+        <item name="cardElevation">0dp</item>
+        <item name="strokeWidth">0dp</item>
     </style>
 </resources>

@@ -43,6 +43,7 @@ anim m3_side_sheet_exit_to_right
 anim mtrl_bottom_sheet_slide_in
 anim mtrl_bottom_sheet_slide_out
 anim mtrl_card_lowers_interpolator
+anim scale_click
 animator design_appbar_state_list_animator
 animator design_fab_hide_motion_spec
 animator design_fab_show_motion_spec
@@ -1357,6 +1358,8 @@ color background_floating_material_dark
 color background_floating_material_light
 color background_material_dark
 color background_material_light
+color bg_dark
+color black
 color bright_foreground_disabled_material_dark
 color bright_foreground_disabled_material_light
 color bright_foreground_inverse_material_dark
@@ -1368,6 +1371,7 @@ color button_material_light
 color call_notification_answer_color
 color call_notification_decline_color
 color card_background
+color card_bg
 color cardview_dark_background
 color cardview_light_background
 color cardview_shadow_end_color
@@ -2071,6 +2075,7 @@ color mtrl_textinput_disabled_color
 color mtrl_textinput_filled_box_default_background_color
 color mtrl_textinput_focused_box_stroke_color
 color mtrl_textinput_hovered_box_stroke_color
+color neon_teal
 color notification_action_color_filter
 color notification_icon_bg_color
 color primary_dark_material_dark
@@ -2081,6 +2086,9 @@ color primary_text_default_material_dark
 color primary_text_default_material_light
 color primary_text_disabled_material_dark
 color primary_text_disabled_material_light
+color purple_200
+color purple_500
+color purple_700
 color ripple_material_dark
 color ripple_material_light
 color search_bg
@@ -2096,11 +2104,15 @@ color switch_thumb_material_dark
 color switch_thumb_material_light
 color switch_thumb_normal_material_dark
 color switch_thumb_normal_material_light
+color teal_200
+color teal_700
+color teal_glow
 color text_hint
 color text_primary
 color text_secondary
 color tooltip_background_dark
 color tooltip_background_light
+color white
 color widget_active
 color widget_inactive
 dimen abc_action_bar_content_inset_material
@@ -2980,6 +2992,8 @@ drawable abc_textfield_search_material
 drawable abc_vector_test
 drawable avd_hide_password
 drawable avd_show_password
+drawable bg_card_rounded
+drawable bg_master_control
 drawable btn_checkbox_checked_mtrl
 drawable btn_checkbox_checked_to_unchecked_mtrl_animation
 drawable btn_checkbox_unchecked_mtrl
@@ -2988,6 +3002,7 @@ drawable btn_radio_off_mtrl
 drawable btn_radio_off_to_on_mtrl_animation
 drawable btn_radio_on_mtrl
 drawable btn_radio_on_to_off_mtrl_animation
+drawable custom_switch_track
 drawable design_fab_background
 drawable design_ic_visibility
 drawable design_ic_visibility_off
@@ -3165,6 +3180,7 @@ id add
 id alertTitle
 id aligned
 id all
+id allAppsList
 id allStates
 id always
 id animateToEnd
@@ -3172,9 +3188,11 @@ id animateToStart
 id antiClockwise
 id anticipate
 id appIcon
-id appList
+id appMuteSwitch
 id appName
 id appPackage
+id appStatus
+id applyChangesButton
 id arc
 id asConfigured
 id async
@@ -3232,6 +3250,8 @@ id currentState
 id custom
 id customPanel
 id cut
+id dashboardAppsList
+id dashboardCheckbox
 id date_picker_actions
 id decelerate
 id decelerateAndComplete
@@ -3296,13 +3316,13 @@ id frost
 id fullscreen_header
 id ghost_view
 id ghost_view_holder
-id globalMuteSwitch
 id gone
 id graph
 id graph_wrap
 id group_divider
 id grouping
 id groups
+id header
 id header_title
 id hide_ime_id
 id hideable
@@ -3338,8 +3358,12 @@ id linear
 id listMode
 id list_item
 id m3_side_sheet
+id manageAppsButton
 id marquee
 id masked
+id masterButtonContainer
+id masterCard
+id masterIcon
 id match_constraint
 id match_parent
 id material_clock_display
@@ -3398,7 +3422,6 @@ id mtrl_picker_title_text
 id mtrl_view_tag_bottom_padding
 id multiply
 id muteSwitch
-id mutedCountText
 id navigation_bar_item_active_indicator_view
 id navigation_bar_item_icon_container
 id navigation_bar_item_icon_view
@@ -3455,6 +3478,8 @@ id postLayout
 id pressed
 id progress_circular
 id progress_horizontal
+id quickTogglesGrid
+id quickTogglesHeader
 id radio
 id ratio
 id rectangles
@@ -3524,7 +3549,6 @@ id startToEnd
 id startVertical
 id staticLayout
 id staticPostLayout
-id statusCard
 id statusText
 id stop
 id stretch
@@ -3566,6 +3590,7 @@ id title
 id titleDividerNoCustom
 id title_template
 id toggle
+id toolbar
 id top
 id topPanel
 id totalBlockedText
@@ -3719,6 +3744,7 @@ layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
 layout activity_main
+layout activity_manage_apps
 layout custom_dialog
 layout design_bottom_navigation_item
 layout design_bottom_sheet_dialog
@@ -3738,6 +3764,8 @@ layout design_text_input_start_icon
 layout ime_base_split_test_activity
 layout ime_secondary_split_test_activity
 layout item_app
+layout item_manage_app
+layout item_quick_toggle
 layout m3_alert_dialog
 layout m3_alert_dialog_actions
 layout m3_alert_dialog_title
@@ -4711,6 +4739,7 @@ style ThemeOverlay_MaterialComponents_TimePicker_Display_TextInputEditText
 style ThemeOverlay_MaterialComponents_Toolbar_Popup_Primary
 style ThemeOverlay_MaterialComponents_Toolbar_Primary
 style ThemeOverlay_MaterialComponents_Toolbar_Surface
+style Widget_App_Card
 style Widget_AppCompat_ActionBar
 style Widget_AppCompat_ActionBar_Solid
 style Widget_AppCompat_ActionBar_TabBar

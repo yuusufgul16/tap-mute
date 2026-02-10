@@ -37,6 +37,7 @@ class MutePreferences(context: Context) {
         private const val KEY_SCHEDULE_START_M = "schedule_start_m"
         private const val KEY_SCHEDULE_END_H = "schedule_end_h"
         private const val KEY_SCHEDULE_END_M = "schedule_end_m"
+        private const val KEY_DASHBOARD_APPS = "dashboard_apps"
         private const val PREF_STATS_PREFIX = "stats_"
     }
 
@@ -103,5 +104,24 @@ class MutePreferences(context: Context) {
 
     fun setGlobalMuteEnabled(enabled: Boolean) {
         prefs.edit().putBoolean(KEY_GLOBAL_MUTE, enabled).apply()
+    }
+
+    // --- Dashboard Apps (Mockup Redesign) ---
+    fun getDashboardApps(): Set<String> {
+        // Default to WhatsApp and Instagram for demonstration if empty
+        return prefs.getStringSet(KEY_DASHBOARD_APPS, setOf("com.whatsapp", "com.instagram.android")) 
+            ?: setOf("com.whatsapp", "com.instagram.android")
+    }
+
+    fun addToDashboard(packageName: String) {
+        val apps = getDashboardApps().toMutableSet()
+        apps.add(packageName)
+        prefs.edit().putStringSet(KEY_DASHBOARD_APPS, apps).apply()
+    }
+
+    fun removeFromDashboard(packageName: String) {
+        val apps = getDashboardApps().toMutableSet()
+        apps.remove(packageName)
+        prefs.edit().putStringSet(KEY_DASHBOARD_APPS, apps).apply()
     }
 }
