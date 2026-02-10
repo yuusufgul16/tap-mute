@@ -28,8 +28,16 @@ Gün boyu gelen yüzlerce bildirim odaklanmamızı zorlaştırıyor. Rahatsız E
 ## 📸 Ekran Görüntüleri
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/yusufgul/tap-mute/main/art/a1.jpeg" width="300" alt="Ana Ekran">
-  <img src="https://raw.githubusercontent.com/yusufgul/tap-mute/main/art/k1.jpeg" width="300" alt="Widget">
+  <img src="https://raw.githubusercontent.com/yusufgul/tap-mute/main/art/a1.jpeg" width="200" alt="Ekran 1">
+  <img src="https://raw.githubusercontent.com/yusufgul/tap-mute/main/art/a2.jpeg" width="200" alt="Ekran 2">
+  <img src="https://raw.githubusercontent.com/yusufgul/tap-mute/main/art/a3.jpeg" width="200" alt="Ekran 3">
+  <img src="https://raw.githubusercontent.com/yusufgul/tap-mute/main/art/a4.jpeg" width="200" alt="Ekran 4">
+</p>
+<p align="center">
+  <img src="https://raw.githubusercontent.com/yusufgul/tap-mute/main/art/k1.jpeg" width="200" alt="Ekran 5">
+  <img src="https://raw.githubusercontent.com/yusufgul/tap-mute/main/art/k2.jpeg" width="200" alt="Ekran 6">
+  <img src="https://raw.githubusercontent.com/yusufgul/tap-mute/main/art/k3.jpeg" width="200" alt="Ekran 7">
+  <img src="https://raw.githubusercontent.com/yusufgul/tap-mute/main/art/k4.jpeg" width="200" alt="Ekran 8">
 </p>
 
 ---
