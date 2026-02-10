@@ -103,17 +103,71 @@ class MainActivity : AppCompatActivity() {
 
     private fun showKeywordsDialog() {
         val keywords = mutePrefs.getKeywords().toMutableList()
-        val adapter = android.widget.ArrayAdapter(this, android.R.layout.simple_list_item_1, keywords)
+        val suggestions = listOf("acil", "neredesin", "yavrum", "canım", "doktor", "hastane", "çabuk", "aç şu telefonu")
         
-        val input = android.widget.EditText(this)
-        input.hint = "Kelime ekle (örn: acil)"
+        // Building a string to show current keywords
+        val currentText = if (keywords.isEmpty()) "Henüz kelime eklenmedi." else keywords.joinToString(", ")
+        
+        val input = android.widget.EditText(this).apply {
+            hint = "Kelime ekle (örn: acil)"
+            setSingleLine(true)
+        }
+
+        val container = android.widget.LinearLayout(this).apply {
+            orientation = android.widget.LinearLayout.VERTICAL
+            setPadding(60, 20, 60, 20)
+            addView(input)
+            
+            // Current keywords description
+            addView(android.widget.TextView(this@MainActivity).apply {
+                text = "\nAktif Filtreler:\n$currentText"
+                textSize = 14f
+                setTextColor(getColor(R.color.text_secondary))
+            })
+
+            // Suggestions title
+            addView(android.widget.TextView(this@MainActivity).apply {
+                text = "\nÖneriler (Tıkla ve Ekle):"
+                textSize = 14f
+                setTypeface(null, android.graphics.Typeface.BOLD)
+                setTextColor(getColor(R.color.text_primary))
+            })
+
+            // Flow layout for suggestions (using a simple LinearLayout wrapping for now)
+            val suggestionsLayout = android.widget.LinearLayout(this@MainActivity).apply {
+                orientation = android.widget.LinearLayout.VERTICAL
+            }
+            
+            suggestions.chunked(3).forEach { rowWords ->
+                val row = android.widget.LinearLayout(this@MainActivity).apply {
+                    orientation = android.widget.LinearLayout.HORIZONTAL
+                }
+                rowWords.forEach { word ->
+                    val chip = com.google.android.material.button.MaterialButton(this@MainActivity, null, com.google.android.material.R.attr.materialButtonOutlinedStyle).apply {
+                        text = word
+                        textSize = 10f
+                        layoutParams = android.widget.LinearLayout.LayoutParams(0, android.widget.LinearLayout.LayoutParams.WRAP_CONTENT, 1f).apply {
+                            setMargins(4, 4, 4, 4)
+                        }
+                        setOnClickListener {
+                            mutePrefs.addKeyword(word)
+                            Toast.makeText(this@MainActivity, "Eklendi: $word", Toast.LENGTH_SHORT).show()
+                            // Refresh dialog or close
+                        }
+                    }
+                    row.addView(chip)
+                }
+                suggestionsLayout.addView(row)
+            }
+            addView(suggestionsLayout)
+        }
         
         MaterialAlertDialogBuilder(this)
-            .setTitle("Kelime Filtresi")
-            .setMessage("Bu kelimeleri içeren bildirimlere HER DURUMDA izin verilir.")
-            .setView(input)
+            .setTitle("Kelime Filtresi (Smart Filter)")
+            .setMessage("Büyük/küçük harf duyarsızdır (Acil = acil). Bu kelimeleri içeren bildirimlere izin verilir.")
+            .setView(container)
             .setPositiveButton("Ekle") { _, _ ->
-                val word = input.text.toString()
+                val word = input.text.toString().trim().lowercase()
                 if (word.isNotBlank()) {
                     mutePrefs.addKeyword(word)
                     Toast.makeText(this, "Eklendi: $word", Toast.LENGTH_SHORT).show()
@@ -123,7 +177,7 @@ class MainActivity : AppCompatActivity() {
                 keywords.forEach { mutePrefs.removeKeyword(it) }
                 Toast.makeText(this, "Filtre temizlendi", Toast.LENGTH_SHORT).show()
             }
-            .setNegativeButton("İptal", null)
+            .setNegativeButton("Kapat", null)
             .show()
     }
 

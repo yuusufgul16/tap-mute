@@ -36,54 +36,62 @@ class MuteNotificationService : NotificationListenerService() {
         // 1. Global Check
         if (!mutePrefs.isGlobalMuteEnabled()) return
 
-        // 2. App-specific Check
-        if (!mutePrefs.isMuted(packageName)) return
-
-        // 3. Keyword Check (Smart Filter)
+        // 3. Keyword Check (Strict Latest Content Filter)
         val extras = sbn.notification.extras
         val keywords = mutePrefs.getKeywords()
         
         if (keywords.isNotEmpty()) {
-            // Concatenate all possible text fields for a thorough search
-            val contentToSearch = StringBuilder()
+            val latestContent = StringBuilder()
             
-            contentToSearch.append(extras.getString("android.title") ?: "")
-            contentToSearch.append(" ")
-            contentToSearch.append(extras.getCharSequence("android.text") ?: "")
-            contentToSearch.append(" ")
-            contentToSearch.append(extras.getCharSequence("android.bigText") ?: "")
-            contentToSearch.append(" ")
-            contentToSearch.append(extras.getCharSequence("android.summaryText") ?: "")
+            // 1. Current Text (Usually contains the latest message)
+            latestContent.append(extras.getCharSequence("android.text") ?: "")
             
-            // For MessagingStyle (WhatsApp), check the messages array
-            val messages = extras.getParcelableArray("android.messages")
-            if (messages != null) {
-                for (m in messages) {
-                    if (m is android.os.Bundle) {
-                        contentToSearch.append(" ")
-                        contentToSearch.append(m.getCharSequence("text") ?: "")
+            // 2. MessagingStyle (Check ONLY the LAST message in the bundle)
+            try {
+                val messages = extras.getParcelableArray("android.messages")
+                if (messages != null && messages.isNotEmpty()) {
+                    val lastMsgBundle = messages.last()
+                    if (lastMsgBundle is android.os.Bundle) {
+                        latestContent.append(" ")
+                        latestContent.append(lastMsgBundle.getCharSequence("text") ?: "")
                     }
+                }
+            } catch (e: Exception) {
+                Log.e("TapMute", "Error reading last message", e)
+            }
+
+            // 3. Text Lines (For grouped notifications, check ONLY the LAST line)
+            val textLines = extras.getCharSequenceArray("android.textLines")
+            if (textLines != null && textLines.isNotEmpty()) {
+                latestContent.append(" ")
+                latestContent.append(textLines.last())
+            }
+
+            val searchStr = latestContent.toString().lowercase()
+            
+            var matched = false
+            for (keyword in keywords) {
+                if (searchStr.contains(keyword.lowercase())) {
+                    matched = true
+                    break
                 }
             }
 
-            val fullText = contentToSearch.toString().lowercase()
-            
-            for (keyword in keywords) {
-                if (fullText.contains(keyword.lowercase())) {
-                    Log.d("TapMute", "Allowed by keyword ($keyword): $packageName")
-                    return // Allowed
-                }
+            if (matched) {
+                Log.d("TapMute", "Allowed: Keyword found in LATEST content")
+                return // ALLOWED
             }
         }
 
-        // 5. Block & Statistics
-        cancelNotification(sbn.key)
+        // 4. App-specific Check (If no keyword in latest content)
+        if (!mutePrefs.isMuted(packageName)) return
         
-        // Battery optimization: Only process data storage when necessary
-        // When screen is off, we still block but can minimize other work if it was heavier
-        mutePrefs.incrementMuteCount(packageName)
-        
-        Log.d("TapMute", "Blocked notification from: $packageName")
+        // 5. Block Policy
+        if (mutePrefs.isGlobalMuteEnabled()) {
+            cancelNotification(sbn.key)
+            mutePrefs.incrementMuteCount(packageName)
+            Log.d("TapMute", "Blocked: No keyword in latest content ($packageName)")
+        }
     }
 
     private fun isScreenOn(): Boolean {
