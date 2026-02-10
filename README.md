@@ -28,8 +28,8 @@ Gün boyu gelen yüzlerce bildirim odaklanmamızı zorlaştırıyor. Rahatsız E
 ## 📸 Ekran Görüntüleri
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/yusufgul/tap-mute/main/art/screenshot_main.png" width="300" alt="Ana Ekran">
-  <img src="https://raw.githubusercontent.com/yusufgul/tap-mute/main/art/screenshot_widget.png" width="300" alt="Widget">
+  <img src="https://raw.githubusercontent.com/yusufgul/tap-mute/main/art/a1.jpeg" width="300" alt="Ana Ekran">
+  <img src="https://raw.githubusercontent.com/yusufgul/tap-mute/main/art/k1.jpeg" width="300" alt="Widget">
 </p>
 
 ---
