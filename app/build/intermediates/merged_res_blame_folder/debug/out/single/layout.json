@@ -1,0 +1,14 @@
+[
+    {
+        "merged": "com.tapmute.app-mergeDebugResources-3:/layout/item_app.xml",
+        "source": "com.tapmute.app-main-6:/layout/item_app.xml"
+    },
+    {
+        "merged": "com.tapmute.app-mergeDebugResources-3:/layout/widget_mute.xml",
+        "source": "com.tapmute.app-main-6:/layout/widget_mute.xml"
+    },
+    {
+        "merged": "com.tapmute.app-mergeDebugResources-3:/layout/activity_main.xml",
+        "source": "com.tapmute.app-main-6:/layout/activity_main.xml"
+    }
+]

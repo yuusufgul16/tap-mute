@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Bell icon with a slash through it -->
+    <path
+        android:fillColor="#FF00E676"
+        android:pathData="M54,28c-8.84,0 -16,7.16 -16,16v12l-4,4v2h40v-2l-4,-4V44c0,-8.84 -7.16,-16 -16,-16zM54,72c2.21,0 4,-1.79 4,-4h-8c0,2.21 1.79,4 4,4z" />
+
+    <!-- Mute slash line -->
+    <path
+        android:fillColor="#FFFF1744"
+        android:pathData="M36,34l36,36"
+        android:strokeWidth="3"
+        android:strokeColor="#FFFF1744" />
+
+</vector>
