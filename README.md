@@ -1,28 +1,67 @@
-# TapMute
+# 🔇 TapMute
 
-Belirli uygulamaların bildirimlerini tek tıkla sessize alan Android uygulaması.
+> **Focus on what matters.** Tek bir dokunuşla gürültüyü kesin, kontrolü elinize alın.
 
-## Özellikler
-- 🔇 Uygulama bazlı bildirim engelleme
-- 📞 Telefon aramaları her zaman sesli kalır
-- 🔍 Uygulama arama/filtreleme
-- 📱 Home screen widget ile tek tıkla toggle
-- 🌙 Karanlık tema
+TapMute, Android cihazınızdaki uygulama bildirimlerini (WhatsApp, Instagram, Telegram vb.) anında ve tamamen sessize almanızı sağlayan, minimalist ve şık bir yardımcı araçtır. En önemli özelliği ise **telefon aramalarını asla engellememesidir.**
 
-## Nasıl Çalışır
-1. Uygulamayı aç
-2. Bildirim erişim iznini ver
-3. Sessize almak istediğin uygulamaları seç
-4. Ana toggle'ı aç → Seçili uygulamalardan bildirim gelmez
-5. Widget ile home screen'den tek tıkla aç/kapa
+---
 
-## Build
-```
+## 🌟 Neden TapMute?
+
+Gün boyu gelen yüzlerce bildirim odaklanmamızı zorlaştırıyor. Rahatsız Etmeyin (Do Not Disturb) modu bazen çok katı kalabiliyor. TapMute ile:
+- Sadece seçtiğiniz "gürültülü" uygulamaları susturursunuz.
+- Beklediğiniz o önemli telefon araması her zaman size ulaşır.
+- Karmaşık ayarlarla uğraşmaz, tek tıkla huzura kavuşursunuz.
+
+---
+
+## 🔥 Temel Özellikler
+
+- **🎯 Akıllı Filtreleme:** Sadece gürültü yapan uygulamaları susturun.
+- **📞 Arama Dostu:** Sesli aramalar her zaman aktif kalır.
+- **⚡ Quick-Access Widget:** Uygulamayı açmadan ana ekranınızdan kontrol edin.
+- **🎨 Modern Aesthetic:** Neon Teal detaylı, göz yormayan Premium Karanlık Tema.
+- **🔒 Gizlilik:** Verileriniz cihazınızda kalır, bildirim içerikleri okunmaz.
+
+---
+
+## 📸 Ekran Görüntüleri
+
+<p align="center">
+  <img src="https://raw.githubusercontent.com/yusufgul/tap-mute/main/art/screenshot_main.png" width="300" alt="Ana Ekran">
+  <img src="https://raw.githubusercontent.com/yusufgul/tap-mute/main/art/screenshot_widget.png" width="300" alt="Widget">
+</p>
+
+---
+
+## 🚀 Hızlı Başlangıç
+
+1. **İzin Ver:** Uygulamayı açın ve `Bildirim Erişimi` iznini onaylayın.
+2. **Seç:** "Listeyi Düzenle" üzerinden susturmak istediğiniz uygulamaları (örn. WhatsApp) işaretleyin.
+3. **Başlat:** Ana ekrandaki büyük butona veya Widget'a dokunarak sessiz modu aktif edin.
+
+---
+
+## 🛠️ Teknik Kurulum
+
+Geliştiriciler için derleme adımları:
+
+```bash
+# Projeyi klonlayın
+git clone https://github.com/yusufgul/tap-mute.git
+
+# APK derleyin
 ./gradlew assembleDebug
 ```
 
-APK: `app/build/outputs/apk/debug/app-debug.apk`
+**Gereksinimler:** Android 8.0+ (Oreo)
 
-## Gereksinimler
-- Android 8.0+ (API 26)
-- Bildirim Erişim İzni
+---
+
+## 🤝 Katkıda Bulun
+
+Bu açık kaynaklı bir projedir. Hataları bildirmek veya yeni özellikler önermek için çekinmeden bir `Issue` açabilirsiniz.
+
+---
+
+<p align="center">Yusuf Gül tarafından ❤️ ile geliştirildi</p>

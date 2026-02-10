@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.TapMute" parent="Theme.Material3.Dark.NoActionBar">
+    <style name="Theme.TapMute" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- New Mockup Primary Colors -->
         <item name="colorPrimary">@color/neon_teal</item>
         <item name="colorPrimaryDark">@color/bg_dark</item>

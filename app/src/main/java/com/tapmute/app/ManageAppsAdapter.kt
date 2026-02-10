@@ -32,19 +32,17 @@ class ManageAppsAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val app = filteredApps[position]
         val context = holder.itemView.context
-        val mutePrefs = MutePreferences(context)
         
-        val isAtDashboard = mutePrefs.getDashboardApps().contains(app.packageName)
-
         holder.icon.setImageDrawable(app.icon)
         holder.name.text = app.appName
         
-        holder.status.text = if (isAtDashboard) "Dashboard'da Aktif" else "Listeye ekle"
-        holder.status.setTextColor(if (isAtDashboard) context.getColor(R.color.neon_teal) else context.getColor(R.color.text_secondary))
+        holder.status.text = if (app.isAtDashboard) "Dashboard'da Aktif" else "Listeye ekle"
+        holder.status.setTextColor(if (app.isAtDashboard) context.getColor(R.color.neon_teal) else context.getColor(R.color.text_secondary))
 
         holder.checkbox.setOnCheckedChangeListener(null)
-        holder.checkbox.isChecked = isAtDashboard
+        holder.checkbox.isChecked = app.isAtDashboard
         holder.checkbox.setOnCheckedChangeListener { _, isChecked ->
+            app.isAtDashboard = isChecked
             onDashboardToggle(app, isChecked)
             holder.status.text = if (isChecked) "Dashboard'da Aktif" else "Listeye ekle"
             holder.status.setTextColor(if (isChecked) context.getColor(R.color.neon_teal) else context.getColor(R.color.text_secondary))

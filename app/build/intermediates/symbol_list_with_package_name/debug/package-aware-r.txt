@@ -1358,6 +1358,7 @@ color background_floating_material_dark
 color background_floating_material_light
 color background_material_dark
 color background_material_light
+color bg_card
 color bg_dark
 color black
 color bright_foreground_disabled_material_dark
@@ -3175,8 +3176,10 @@ id action_mode_bar_stub
 id action_mode_close_button
 id action_text
 id actions
+id activeKeywordsTitle
 id activity_chooser_view_content
 id add
+id addKeywordButton
 id alertTitle
 id aligned
 id all
@@ -3247,6 +3250,7 @@ id cos
 id counterclockwise
 id cradle
 id currentState
+id currentThemeText
 id custom
 id customPanel
 id cut
@@ -3257,6 +3261,7 @@ id decelerate
 id decelerateAndComplete
 id decor_content_parent
 id default_activity_button
+id deleteButton
 id deltaRelative
 id dependency_ordering
 id design_bottom_sheet
@@ -3347,6 +3352,11 @@ id italic
 id item_touch_helper_previous_elevation
 id jumpToEnd
 id jumpToStart
+id keywordInput
+id keywordInputLayout
+id keywordText
+id keywordsList
+id keywordsSetting
 id labeled
 id layout
 id left
@@ -3437,6 +3447,7 @@ id noState
 id none
 id normal
 id north
+id notificationAccessSetting
 id notification_background
 id notification_main_column
 id notification_main_column_container
@@ -3554,6 +3565,7 @@ id stop
 id stretch
 id submenuarrow
 id submit_area
+id suggestionGroup
 id supportScrollUp
 id tabMode
 id tag_accessibility_actions
@@ -3585,6 +3597,7 @@ id textinput_helper_text
 id textinput_placeholder
 id textinput_prefix_text
 id textinput_suffix_text
+id themeSetting
 id time
 id title
 id titleDividerNoCustom
@@ -3743,8 +3756,10 @@ layout abc_search_dropdown_item_icons_2line
 layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
+layout activity_keywords
 layout activity_main
 layout activity_manage_apps
+layout activity_settings
 layout custom_dialog
 layout design_bottom_navigation_item
 layout design_bottom_sheet_dialog
@@ -3764,6 +3779,7 @@ layout design_text_input_start_icon
 layout ime_base_split_test_activity
 layout ime_secondary_split_test_activity
 layout item_app
+layout item_keyword
 layout item_manage_app
 layout item_quick_toggle
 layout m3_alert_dialog

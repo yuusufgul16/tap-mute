@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base colors - Dark theme -->
+    <color name="background">#0A1A1A</color>
+    <color name="card_background">#132626</color>
+    <color name="text_hint">#FF707070</color>
+    
+    <!-- Mockup Modern Palette -->
+    <color name="bg_dark">#0A1A1A</color>
+    <color name="card_bg">#132626</color>
+    <color name="bg_card">#132626</color>
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_secondary">#7A8A8A</color>
+    <color name="neon_teal">#1DE9B6</color>
+</resources>

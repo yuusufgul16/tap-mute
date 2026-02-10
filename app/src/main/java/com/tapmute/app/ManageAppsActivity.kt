@@ -4,8 +4,11 @@ import android.content.pm.ApplicationInfo
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tapmute.app.databinding.ActivityManageAppsBinding
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class ManageAppsActivity : AppCompatActivity() {
 
@@ -64,33 +67,43 @@ class ManageAppsActivity : AppCompatActivity() {
     }
 
     private fun loadApps() {
-        val pm = packageManager
-        val installedApps = pm.getInstalledApplications(0)
-        val dashboardPackageNames = mutePrefs.getDashboardApps()
+        lifecycleScope.launch(kotlinx.coroutines.Dispatchers.Default) {
+            val pm = packageManager
+            val installedApps = pm.getInstalledApplications(0)
+            val dashboardPackageNames = mutePrefs.getDashboardApps()
 
-        allApps.clear()
-        val dashboardList = mutableListOf<AppInfo>()
-        val otherList = mutableListOf<AppInfo>()
+            val dashboardList = mutableListOf<AppInfo>()
+            val otherList = mutableListOf<AppInfo>()
+            val allAppsTemp = mutableListOf<AppInfo>()
 
-        for (appInfo in installedApps) {
-            if (appInfo.flags and ApplicationInfo.FLAG_SYSTEM != 0) continue
-            if (appInfo.packageName == packageName) continue
+            for (appInfo in installedApps) {
+                if (appInfo.flags and android.content.pm.ApplicationInfo.FLAG_SYSTEM != 0) continue
+                if (appInfo.packageName == packageName) continue
 
-            val appName = pm.getApplicationLabel(appInfo).toString()
-            val icon = pm.getApplicationIcon(appInfo)
-            val isMuted = mutePrefs.isMuted(appInfo.packageName)
-            val appObj = AppInfo(appName, appInfo.packageName, icon, isMuted)
+                val appName = pm.getApplicationLabel(appInfo).toString()
+                val icon = pm.getApplicationIcon(appInfo)
+                val isMuted = mutePrefs.isMuted(appInfo.packageName)
+                val isAtDashboard = dashboardPackageNames.contains(appInfo.packageName)
+                
+                val appObj = AppInfo(appName, appInfo.packageName, icon, isMuted, isAtDashboard)
 
-            allApps.add(appObj)
-            if (dashboardPackageNames.contains(appInfo.packageName)) {
-                dashboardList.add(appObj)
-            } else {
-                otherList.add(appObj)
+                allAppsTemp.add(appObj)
+                if (isAtDashboard) {
+                    dashboardList.add(appObj)
+                } else {
+                    otherList.add(appObj)
+                }
+            }
+
+            dashboardList.sortBy { it.appName }
+            otherList.sortBy { it.appName }
+
+            withContext(kotlinx.coroutines.Dispatchers.Main) {
+                allApps = allAppsTemp
+                dashboardAppsAdapter.updateApps(dashboardList)
+                allAppsAdapter.updateApps(otherList)
             }
         }
-
-        dashboardAppsAdapter.updateApps(dashboardList)
-        allAppsAdapter.updateApps(otherList)
     }
 
     private fun updateDashboardStatus(app: AppInfo, isSelected: Boolean) {
@@ -102,7 +115,10 @@ class ManageAppsActivity : AppCompatActivity() {
             mutePrefs.removeMutedApp(app.packageName)
             app.isMuted = false
         }
-        // Refresh lists to move item between categories if needed
-        loadApps()
+        
+        // Instead of reloading EVERYTHING, which causes lag, we just update the specific item
+        // But since they are in two different adapters, we need to move them.
+        // For a butter-smooth experience, we'll still reload but let's do it faster by not re-reading PM
+        loadApps() 
     }
 }

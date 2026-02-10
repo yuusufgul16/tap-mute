@@ -39,6 +39,7 @@ class MutePreferences(context: Context) {
         private const val KEY_SCHEDULE_END_M = "schedule_end_m"
         private const val KEY_DASHBOARD_APPS = "dashboard_apps"
         private const val PREF_STATS_PREFIX = "stats_"
+        private const val KEY_THEME = "app_theme"
     }
 
     // --- Keywords ---
@@ -123,5 +124,11 @@ class MutePreferences(context: Context) {
         val apps = getDashboardApps().toMutableSet()
         apps.remove(packageName)
         prefs.edit().putStringSet(KEY_DASHBOARD_APPS, apps).apply()
+    }
+
+    fun getAppTheme(): Int = prefs.getInt(KEY_THEME, -1) // -1 is Follow System
+
+    fun setAppTheme(theme: Int) {
+        prefs.edit().putInt(KEY_THEME, theme).apply()
     }
 }

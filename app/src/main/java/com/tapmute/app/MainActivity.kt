@@ -1,8 +1,10 @@
 package com.tapmute.app
 
+import android.Manifest
 import android.content.ComponentName
 import android.content.Intent
 import android.content.pm.ApplicationInfo
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
@@ -136,90 +138,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showSettingsDialog() {
-        val items = arrayOf("Kelime Filtresi (Smart Filter)")
-        MaterialAlertDialogBuilder(this)
-            .setTitle("Gelişmiş Ayarlar")
-            .setItems(items) { _, which ->
-                when (which) {
-                    0 -> showKeywordsDialog()
-                }
-            }
-            .setPositiveButton("Kapat", null)
-            .show()
+        startActivity(Intent(this, SettingsActivity::class.java))
     }
 
-    private fun showKeywordsDialog() {
-        val keywords = mutePrefs.getKeywords().toMutableList()
-        val suggestions = listOf("acil", "neredesin", "yavrum", "canım", "doktor", "hastane", "çabuk", "aç şu telefonu")
-        
-        val currentText = if (keywords.isEmpty()) "Henüz kelime eklenmedi." else keywords.joinToString(", ")
-        
-        val input = android.widget.EditText(this).apply {
-            hint = "Kelime ekle (örn: acil)"
-            setSingleLine(true)
-        }
-
-        val container = android.widget.LinearLayout(this).apply {
-            orientation = android.widget.LinearLayout.VERTICAL
-            setPadding(60, 20, 60, 20)
-            addView(input)
-            
-            addView(android.widget.TextView(this@MainActivity).apply {
-                text = "\nAktif Filtreler:\n$currentText"
-                textSize = 14f
-                setTextColor(getColor(R.color.text_secondary))
-            })
-
-            addView(android.widget.TextView(this@MainActivity).apply {
-                text = "\nÖneriler (Tıkla ve Ekle):"
-                textSize = 14f
-                setTypeface(null, android.graphics.Typeface.BOLD)
-                setTextColor(getColor(R.color.text_primary))
-            })
-
-            val suggestionsLayout = android.widget.LinearLayout(this@MainActivity).apply {
-                orientation = android.widget.LinearLayout.VERTICAL
-            }
-            
-            suggestions.chunked(3).forEach { rowWords ->
-                val row = android.widget.LinearLayout(this@MainActivity).apply {
-                    orientation = android.widget.LinearLayout.HORIZONTAL
-                }
-                rowWords.forEach { word ->
-                    val chip = com.google.android.material.button.MaterialButton(this@MainActivity, null, com.google.android.material.R.attr.materialButtonOutlinedStyle).apply {
-                        text = word
-                        textSize = 10f
-                        layoutParams = android.widget.LinearLayout.LayoutParams(0, android.widget.LinearLayout.LayoutParams.WRAP_CONTENT, 1f).apply {
-                            setMargins(4, 4, 4, 4)
-                        }
-                        setOnClickListener {
-                            mutePrefs.addKeyword(word)
-                            Toast.makeText(this@MainActivity, "Eklendi: $word", Toast.LENGTH_SHORT).show()
-                        }
-                    }
-                    row.addView(chip)
-                }
-                suggestionsLayout.addView(row)
-            }
-            addView(suggestionsLayout)
-        }
-        
-        MaterialAlertDialogBuilder(this)
-            .setTitle("Kelime Filtresi (Smart Filter)")
-            .setMessage("Büyük/küçük harf duyarsızdır. Bu kelimeleri içeren bildirimlere izin verilir.")
-            .setView(container)
-            .setPositiveButton("Ekle") { _, _ ->
-                val word = input.text.toString().trim().lowercase()
-                if (word.isNotBlank()) {
-                    mutePrefs.addKeyword(word)
-                }
-            }
-            .setNeutralButton("Temizle") { _, _ ->
-                keywords.forEach { mutePrefs.removeKeyword(it) }
-            }
-            .setNegativeButton("Kapat", null)
-            .show()
-    }
 
     private fun isNotificationListenerEnabled(): Boolean {
         val cn = ComponentName(this, MuteNotificationService::class.java)

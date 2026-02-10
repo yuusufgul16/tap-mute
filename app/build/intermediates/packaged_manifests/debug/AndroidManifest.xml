@@ -18,6 +18,7 @@
     <uses-permission android:name="com.tapmute.app.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
 
     <application
+        android:name="com.tapmute.app.TapMuteApp"
         android:allowBackup="true"
         android:appComponentFactory="androidx.core.app.CoreComponentFactory"
         android:debuggable="true"
@@ -39,6 +40,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.tapmute.app.SettingsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.TapMute" />
+        <activity
+            android:name="com.tapmute.app.KeywordsActivity"
+            android:exported="false"
+            android:theme="@style/Theme.TapMute" />
         <activity
             android:name="com.tapmute.app.ManageAppsActivity"
             android:exported="false"

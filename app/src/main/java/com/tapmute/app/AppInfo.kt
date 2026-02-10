@@ -6,5 +6,6 @@ data class AppInfo(
     val appName: String,
     val packageName: String,
     val icon: Drawable,
-    var isMuted: Boolean = false
+    var isMuted: Boolean = false,
+    var isAtDashboard: Boolean = false
 )
