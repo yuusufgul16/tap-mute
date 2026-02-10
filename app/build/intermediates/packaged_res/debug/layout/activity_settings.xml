@@ -218,7 +218,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:gravity="center"
-                android:text="TapMute v1.0\nPremium Edition"
+                android:text="TapMute v1.0\nBeta Edition"
                 android:textColor="@color/text_secondary"
                 android:textSize="12sp" />
 

@@ -1,16 +1,13 @@
 package com.tapmute.app
 
-import android.Manifest
 import android.content.ComponentName
 import android.content.Intent
 import android.content.pm.ApplicationInfo
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.provider.Settings
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.tapmute.app.databinding.ActivityMainBinding
 
@@ -18,7 +15,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var mutePrefs: MutePreferences
-    private lateinit var quickToggleAdapter: AppListAdapter // Reusing adapter with custom layout eventually
+    private lateinit var dashboardAdapter: AppListAdapter
+    private var dashboardApps = mutableListOf<AppInfo>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,13 +27,11 @@ class MainActivity : AppCompatActivity() {
 
         setupMasterControl()
         setupDashboardGrid()
-        setupNavigation()
         setupSettings()
         
-        // Initial state update
+        loadDashboardApps()
         updateUIState()
 
-        // Check notification listener permission
         if (!isNotificationListenerEnabled()) {
             showPermissionDialog()
         }
@@ -48,29 +44,28 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupMasterControl() {
-        binding.masterButtonContainer.setOnClickListener {
-            // Click animation
+        binding.masterCard.setOnClickListener {
             val animation = android.view.animation.AnimationUtils.loadAnimation(this, R.anim.scale_click)
-            binding.masterButtonContainer.startAnimation(animation)
+            binding.masterCard.startAnimation(animation)
 
-            val isEnabled = mutePrefs.isGlobalMuteEnabled()
-            val newState = !isEnabled
-            
+            val currentState = mutePrefs.isGlobalMuteEnabled()
+            val newState = !currentState
+
             if (newState && !isNotificationListenerEnabled()) {
                 showPermissionDialog()
                 return@setOnClickListener
             }
-            
+
             mutePrefs.setGlobalMuteEnabled(newState)
             updateUIState()
-            
-            val msg = if (newState) "Sessiz mod aktif" else "Sessiz mod kapalı"
+
+            val msg = if (newState) "Sessiz Mod Aktif" else "Bildirimler Açık"
             Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
         }
     }
 
     private fun setupDashboardGrid() {
-        quickToggleAdapter = AppListAdapter(mutableListOf(), isDashboardMode = true) { app, isMuted ->
+        dashboardAdapter = AppListAdapter(dashboardApps, isDashboardMode = true) { app, isMuted ->
             if (isMuted) {
                 mutePrefs.addMutedApp(app.packageName)
             } else {
@@ -78,69 +73,60 @@ class MainActivity : AppCompatActivity() {
             }
             updateUIState()
         }
-        binding.quickTogglesGrid.layoutManager = GridLayoutManager(this, 2)
-        binding.quickTogglesGrid.adapter = quickToggleAdapter
-        loadDashboardApps()
-    }
-
-    private fun loadDashboardApps() {
-        val pm = packageManager
-        val dashboardPackageNames = mutePrefs.getDashboardApps()
-        val dashboardApps = mutableListOf<AppInfo>()
-
-        for (pkg in dashboardPackageNames) {
-            try {
-                val appInfo = pm.getApplicationInfo(pkg, 0)
-                val appName = pm.getApplicationLabel(appInfo).toString()
-                val icon = pm.getApplicationIcon(appInfo)
-                val isMuted = mutePrefs.isMuted(pkg)
-                dashboardApps.add(AppInfo(appName, pkg, icon, isMuted))
-            } catch (e: Exception) {
-                // App might have been uninstalled
-                Log.e("TapMute", "Dashboard app not found: $pkg")
-            }
-        }
-        quickToggleAdapter.updateApps(dashboardApps)
-    }
-
-    private fun setupNavigation() {
-        binding.manageAppsButton.setOnClickListener {
-            // Intent to ManageAppsActivity (To be created)
-            val intent = Intent(this, ManageAppsActivity::class.java)
-            startActivity(intent)
-        }
+        binding.quickTogglesGrid.layoutManager = androidx.recyclerview.widget.GridLayoutManager(this, 2)
+        binding.quickTogglesGrid.adapter = dashboardAdapter
     }
 
     private fun setupSettings() {
         binding.settingsButton.setOnClickListener {
-            showSettingsDialog()
+            startActivity(Intent(this, SettingsActivity::class.java))
+        }
+        binding.manageAppsButton.setOnClickListener {
+            startActivity(Intent(this, ManageAppsActivity::class.java))
         }
     }
 
     private fun updateUIState() {
-        val isEnabled = mutePrefs.isGlobalMuteEnabled() && isNotificationListenerEnabled()
+        val enabled = mutePrefs.isGlobalMuteEnabled() && isNotificationListenerEnabled()
         
-        if (isEnabled) {
+        if (enabled) {
             binding.statusText.text = "Sessiz Mod Aktif"
             binding.statusText.setTextColor(getColor(R.color.neon_teal))
             binding.masterIcon.setImageResource(android.R.drawable.ic_lock_silent_mode)
-            binding.masterIcon.imageTintList = android.content.res.ColorStateList.valueOf(getColor(R.color.bg_dark))
-            binding.masterButtonContainer.alpha = 1.0f
+            binding.masterIcon.setColorFilter(getColor(R.color.bg_dark))
+            binding.masterButtonContainer.setBackgroundResource(R.drawable.bg_master_control)
         } else {
-            binding.statusText.text = "Sessiz Mod Kapalı"
+            binding.statusText.text = "Bildirimler Açık"
             binding.statusText.setTextColor(getColor(R.color.text_secondary))
             binding.masterIcon.setImageResource(android.R.drawable.ic_lock_silent_mode_off)
-            binding.masterIcon.imageTintList = android.content.res.ColorStateList.valueOf(getColor(R.color.text_secondary))
-            binding.masterButtonContainer.alpha = 0.5f // Dimmed look when off
+            binding.masterIcon.setColorFilter(getColor(R.color.neon_teal))
+            binding.masterButtonContainer.setBackgroundResource(R.drawable.bg_card_rounded)
         }
-        
+
         binding.totalBlockedText.text = "${mutePrefs.getTotalMuteCount()} engellendi"
     }
 
-    private fun showSettingsDialog() {
-        startActivity(Intent(this, SettingsActivity::class.java))
-    }
+    private fun loadDashboardApps() {
+        val pm = packageManager
+        val installedApps = pm.getInstalledApplications(0)
+        val dashboardPackageNames = mutePrefs.getDashboardApps()
 
+        dashboardApps.clear()
+        for (appInfo in installedApps) {
+            if (appInfo.flags and ApplicationInfo.FLAG_SYSTEM != 0) continue
+            if (appInfo.packageName == packageName) continue
+            if (!dashboardPackageNames.contains(appInfo.packageName)) continue
+
+            val appName = pm.getApplicationLabel(appInfo).toString()
+            val icon = pm.getApplicationIcon(appInfo)
+            val isMuted = mutePrefs.isMuted(appInfo.packageName)
+
+            dashboardApps.add(AppInfo(appName, appInfo.packageName, icon, isMuted))
+        }
+        
+        dashboardApps.sortBy { it.appName }
+        dashboardAdapter.updateApps(dashboardApps)
+    }
 
     private fun isNotificationListenerEnabled(): Boolean {
         val cn = ComponentName(this, MuteNotificationService::class.java)

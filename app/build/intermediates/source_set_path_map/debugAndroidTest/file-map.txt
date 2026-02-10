@@ -1,0 +1,4 @@
+com.tapmute.app.test.app-androidTest-0 C:\Users\zyusu\.gemini\antigravity\scratch\tap-mute\app\build\generated\res\resValues\androidTest\debug
+com.tapmute.app.test.app-mergeDebugAndroidTestResources-1 C:\Users\zyusu\.gemini\antigravity\scratch\tap-mute\app\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\merged.dir
+com.tapmute.app.test.app-mergeDebugAndroidTestResources-2 C:\Users\zyusu\.gemini\antigravity\scratch\tap-mute\app\build\intermediates\incremental\debugAndroidTest\mergeDebugAndroidTestResources\stripped.dir
+com.tapmute.app.test.app-merged_res-3 C:\Users\zyusu\.gemini\antigravity\scratch\tap-mute\app\build\intermediates\merged_res\debugAndroidTest

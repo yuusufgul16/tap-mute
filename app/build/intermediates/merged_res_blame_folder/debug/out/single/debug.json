@@ -16,6 +16,10 @@
         "source": "C:\\Users\\zyusu\\.gradle\\daemon\\8.5\\com.tapmute.app-main-6:\\layout\\item_quick_toggle.xml"
     },
     {
+        "merged": "C:\\Users\\zyusu\\.gradle\\daemon\\8.5\\com.tapmute.app-merged_res-4:\\layout_item_manage_app.xml.flat",
+        "source": "C:\\Users\\zyusu\\.gradle\\daemon\\8.5\\com.tapmute.app-main-6:\\layout\\item_manage_app.xml"
+    },
+    {
         "merged": "C:\\Users\\zyusu\\.gradle\\daemon\\8.5\\com.tapmute.app-merged_res-4:\\drawable_widget_bg_inactive.xml.flat",
         "source": "C:\\Users\\zyusu\\.gradle\\daemon\\8.5\\com.tapmute.app-main-6:\\drawable\\widget_bg_inactive.xml"
     },
@@ -24,12 +28,24 @@
         "source": "C:\\Users\\zyusu\\.gradle\\daemon\\8.5\\com.tapmute.app-main-6:\\drawable\\bg_card_rounded.xml"
     },
     {
-        "merged": "com.tapmute.app-merged_res-4:/layout_widget_mute.xml.flat",
-        "source": "com.tapmute.app-main-6:/layout/widget_mute.xml"
+        "merged": "C:\\Users\\zyusu\\.gradle\\daemon\\8.5\\com.tapmute.app-merged_res-4:\\anim_scale_click.xml.flat",
+        "source": "C:\\Users\\zyusu\\.gradle\\daemon\\8.5\\com.tapmute.app-main-6:\\anim\\scale_click.xml"
     },
     {
         "merged": "C:\\Users\\zyusu\\.gradle\\daemon\\8.5\\com.tapmute.app-merged_res-4:\\drawable_ic_launcher_background.xml.flat",
         "source": "C:\\Users\\zyusu\\.gradle\\daemon\\8.5\\com.tapmute.app-main-6:\\drawable\\ic_launcher_background.xml"
+    },
+    {
+        "merged": "C:\\Users\\zyusu\\.gradle\\daemon\\8.5\\com.tapmute.app-merged_res-4:\\drawable_ic_launcher_foreground.xml.flat",
+        "source": "C:\\Users\\zyusu\\.gradle\\daemon\\8.5\\com.tapmute.app-main-6:\\drawable\\ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "C:\\Users\\zyusu\\.gradle\\daemon\\8.5\\com.tapmute.app-merged_res-4:\\layout_activity_settings.xml.flat",
+        "source": "C:\\Users\\zyusu\\.gradle\\daemon\\8.5\\com.tapmute.app-main-6:\\layout\\activity_settings.xml"
+    },
+    {
+        "merged": "C:\\Users\\zyusu\\.gradle\\daemon\\8.5\\com.tapmute.app-merged_res-4:\\layout_widget_mute.xml.flat",
+        "source": "C:\\Users\\zyusu\\.gradle\\daemon\\8.5\\com.tapmute.app-main-6:\\layout\\widget_mute.xml"
     },
     {
         "merged": "C:\\Users\\zyusu\\.gradle\\daemon\\8.5\\com.tapmute.app-merged_res-4:\\layout_activity_main.xml.flat",
@@ -38,6 +54,10 @@
     {
         "merged": "C:\\Users\\zyusu\\.gradle\\daemon\\8.5\\com.tapmute.app-merged_res-4:\\drawable_search_bg.xml.flat",
         "source": "C:\\Users\\zyusu\\.gradle\\daemon\\8.5\\com.tapmute.app-main-6:\\drawable\\search_bg.xml"
+    },
+    {
+        "merged": "C:\\Users\\zyusu\\.gradle\\daemon\\8.5\\com.tapmute.app-merged_res-4:\\drawable_custom_switch_track.xml.flat",
+        "source": "C:\\Users\\zyusu\\.gradle\\daemon\\8.5\\com.tapmute.app-main-6:\\drawable\\custom_switch_track.xml"
     },
     {
         "merged": "C:\\Users\\zyusu\\.gradle\\daemon\\8.5\\com.tapmute.app-merged_res-4:\\layout_item_keyword.xml.flat",
@@ -56,43 +76,15 @@
         "source": "C:\\Users\\zyusu\\.gradle\\daemon\\8.5\\com.tapmute.app-main-6:\\layout\\activity_manage_apps.xml"
     },
     {
-        "merged": "com.tapmute.app-merged_res-4:/drawable_widget_bg_active.xml.flat",
-        "source": "com.tapmute.app-main-6:/drawable/widget_bg_active.xml"
+        "merged": "C:\\Users\\zyusu\\.gradle\\daemon\\8.5\\com.tapmute.app-merged_res-4:\\mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "C:\\Users\\zyusu\\.gradle\\daemon\\8.5\\com.tapmute.app-main-6:\\mipmap-anydpi-v26\\ic_launcher.xml"
     },
     {
         "merged": "C:\\Users\\zyusu\\.gradle\\daemon\\8.5\\com.tapmute.app-merged_res-4:\\layout_activity_keywords.xml.flat",
         "source": "C:\\Users\\zyusu\\.gradle\\daemon\\8.5\\com.tapmute.app-main-6:\\layout\\activity_keywords.xml"
     },
     {
-        "merged": "C:\\Users\\zyusu\\.gradle\\daemon\\8.5\\com.tapmute.app-merged_res-4:\\layout_item_manage_app.xml.flat",
-        "source": "C:\\Users\\zyusu\\.gradle\\daemon\\8.5\\com.tapmute.app-main-6:\\layout\\item_manage_app.xml"
-    },
-    {
-        "merged": "C:\\Users\\zyusu\\.gradle\\daemon\\8.5\\com.tapmute.app-merged_res-4:\\anim_scale_click.xml.flat",
-        "source": "C:\\Users\\zyusu\\.gradle\\daemon\\8.5\\com.tapmute.app-main-6:\\anim\\scale_click.xml"
-    },
-    {
-        "merged": "C:\\Users\\zyusu\\.gradle\\daemon\\8.5\\com.tapmute.app-merged_res-4:\\drawable_ic_launcher_foreground.xml.flat",
-        "source": "C:\\Users\\zyusu\\.gradle\\daemon\\8.5\\com.tapmute.app-main-6:\\drawable\\ic_launcher_foreground.xml"
-    },
-    {
-        "merged": "C:\\Users\\zyusu\\.gradle\\daemon\\8.5\\com.tapmute.app-merged_res-4:\\layout_activity_settings.xml.flat",
-        "source": "C:\\Users\\zyusu\\.gradle\\daemon\\8.5\\com.tapmute.app-main-6:\\layout\\activity_settings.xml"
-    },
-    {
-        "merged": "C:\\Users\\zyusu\\.gradle\\daemon\\8.5\\com.tapmute.app-merged_res-4:\\layout_widget_mute.xml.flat",
-        "source": "C:\\Users\\zyusu\\.gradle\\daemon\\8.5\\com.tapmute.app-main-6:\\layout\\widget_mute.xml"
-    },
-    {
-        "merged": "C:\\Users\\zyusu\\.gradle\\daemon\\8.5\\com.tapmute.app-merged_res-4:\\drawable_custom_switch_track.xml.flat",
-        "source": "C:\\Users\\zyusu\\.gradle\\daemon\\8.5\\com.tapmute.app-main-6:\\drawable\\custom_switch_track.xml"
-    },
-    {
-        "merged": "com.tapmute.app-merged_res-4:/drawable_widget_bg_inactive.xml.flat",
-        "source": "com.tapmute.app-main-6:/drawable/widget_bg_inactive.xml"
-    },
-    {
-        "merged": "C:\\Users\\zyusu\\.gradle\\daemon\\8.5\\com.tapmute.app-merged_res-4:\\mipmap-anydpi-v26_ic_launcher.xml.flat",
-        "source": "C:\\Users\\zyusu\\.gradle\\daemon\\8.5\\com.tapmute.app-main-6:\\mipmap-anydpi-v26\\ic_launcher.xml"
+        "merged": "com.tapmute.app-merged_res-4:/layout_activity_settings.xml.flat",
+        "source": "com.tapmute.app-main-6:/layout/activity_settings.xml"
     }
 ]

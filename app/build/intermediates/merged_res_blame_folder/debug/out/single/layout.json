@@ -8,12 +8,12 @@
         "source": "C:\\Users\\zyusu\\.gradle\\daemon\\8.5\\com.tapmute.app-main-6:\\layout\\widget_mute.xml"
     },
     {
-        "merged": "C:\\Users\\zyusu\\.gradle\\daemon\\8.5\\com.tapmute.app-mergeDebugResources-3:\\layout\\activity_settings.xml",
-        "source": "C:\\Users\\zyusu\\.gradle\\daemon\\8.5\\com.tapmute.app-main-6:\\layout\\activity_settings.xml"
+        "merged": "com.tapmute.app-mergeDebugResources-3:/layout/activity_settings.xml",
+        "source": "com.tapmute.app-main-6:/layout/activity_settings.xml"
     },
     {
-        "merged": "com.tapmute.app-mergeDebugResources-3:/layout/widget_mute.xml",
-        "source": "com.tapmute.app-main-6:/layout/widget_mute.xml"
+        "merged": "C:\\Users\\zyusu\\.gradle\\daemon\\8.5\\com.tapmute.app-mergeDebugResources-3:\\layout\\activity_settings.xml",
+        "source": "C:\\Users\\zyusu\\.gradle\\daemon\\8.5\\com.tapmute.app-main-6:\\layout\\activity_settings.xml"
     },
     {
         "merged": "C:\\Users\\zyusu\\.gradle\\daemon\\8.5\\com.tapmute.app-mergeDebugResources-3:\\layout\\activity_manage_apps.xml",
