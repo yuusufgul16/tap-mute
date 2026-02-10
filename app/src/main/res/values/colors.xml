@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base colors - Dark theme -->
+    <color name="background">#FF121212</color>
+    <color name="card_background">#FF1E1E1E</color>
+    <color name="text_primary">#FFFFFFFF</color>
+    <color name="text_secondary">#FFB0B0B0</color>
+    <color name="text_hint">#FF707070</color>
+
+    <!-- Status colors -->
+    <color name="status_active">#FF1B5E20</color>
+    <color name="status_inactive">#FF1E1E1E</color>
+
+    <!-- Accent -->
+    <color name="accent">#FF00E676</color>
+    <color name="accent_dark">#FF00C853</color>
+
+    <!-- Search -->
+    <color name="search_bg">#FF2A2A2A</color>
+
+    <!-- Widget -->
+    <color name="widget_active">#FF1B5E20</color>
+    <color name="widget_inactive">#FF37474F</color>
+</resources>
