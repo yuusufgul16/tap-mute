@@ -43,10 +43,14 @@ class MuteNotificationService : NotificationListenerService() {
         if (keywords.isNotEmpty()) {
             val latestContent = StringBuilder()
             
-            // 1. Current Text (Usually contains the latest message)
+            // 1. Title (Sender name or group name)
+            latestContent.append(extras.getString("android.title") ?: "")
+            latestContent.append(" ")
+            
+            // 2. Current Text (Latest message body)
             latestContent.append(extras.getCharSequence("android.text") ?: "")
             
-            // 2. MessagingStyle (Check ONLY the LAST message in the bundle)
+            // 3. MessagingStyle (Check ONLY the LAST message in the bundle)
             try {
                 val messages = extras.getParcelableArray("android.messages")
                 if (messages != null && messages.isNotEmpty()) {
@@ -60,25 +64,26 @@ class MuteNotificationService : NotificationListenerService() {
                 Log.e("TapMute", "Error reading last message", e)
             }
 
-            // 3. Text Lines (For grouped notifications, check ONLY the LAST line)
+            // 4. Text Lines (For grouped notifications, check ONLY the LAST line)
             val textLines = extras.getCharSequenceArray("android.textLines")
             if (textLines != null && textLines.isNotEmpty()) {
                 latestContent.append(" ")
                 latestContent.append(textLines.last())
             }
 
-            val searchStr = latestContent.toString().lowercase()
+            val searchStr = latestContent.toString() // Keep original case for ignoreCase=true
             
             var matched = false
             for (keyword in keywords) {
-                if (searchStr.contains(keyword.lowercase())) {
+                // Using ignoreCase = true is the most robust way for Turkish I/i issues
+                if (searchStr.contains(keyword, ignoreCase = true)) {
                     matched = true
                     break
                 }
             }
 
             if (matched) {
-                Log.d("TapMute", "Allowed: Keyword found in LATEST content")
+                Log.d("TapMute", "Allowed: Keyword match found")
                 return // ALLOWED
             }
         }
