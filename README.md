@@ -1,5 +1,8 @@
 # 🔇 TapMute
 
+[![License](https://img.shields.io/badge/License-Proprietary-red.svg)](LICENSE)
+
+
 > **Focus on what matters.** Tek bir dokunuşla gürültüyü kesin, kontrolü elinize alın.
 
 TapMute, Android cihazınızdaki uygulama bildirimlerini (WhatsApp, Instagram, Telegram vb.) anında ve tamamen sessize almanızı sağlayan, minimalist ve şık bir yardımcı araçtır. En önemli özelliği ise **telefon aramalarını asla engellememesidir.**
@@ -17,10 +20,13 @@ Gün boyu gelen yüzlerce bildirim odaklanmamızı zorlaştırıyor. Rahatsız E
 
 ## 🔥 Temel Özellikler
 
-- **🎯 Akıllı Filtreleme:** Sadece gürültü yapan uygulamaları susturun.
-- **📞 Arama Dostu:** Sesli aramalar her zaman aktif kalır.
+- **🎨 Neon Teal Tasarım:** Modern ve premium bir arayüz.
+- **🔇 Akıllı Sessiz Mod:** Aramaları engellemeden uygulamaları susturma.
+- **🔍 Akıllı Kelime Filtresi:** "Acil", "Hastanede" gibi belirlediğiniz kritik kelimeleri içeren bildirimlerin sessiz modda bile size ulaşmasını sağlayın.
+- **⚡ Hızlı Erişim:** Ana ekran widget desteği.
+- **🔔 Uygulama İkonu:** Yeni minimalist tasarım.
 - **⚡ Quick-Access Widget:** Uygulamayı açmadan ana ekranınızdan kontrol edin.
-- **🎨 Modern Aesthetic:** Neon Teal detaylı, göz yormayan Premium Karanlık Tema.
+- **🎨 Modern Aesthetic:** Neon Teal detaylı, göz yormayan Premium Karanlık veya Aydınlık Tema.
 - **🔒 Gizlilik:** Verileriniz cihazınızda kalır, bildirim içerikleri okunmaz.
 
 ---
@@ -66,9 +72,15 @@ git clone https://github.com/yusufgul/tap-mute.git
 
 ---
 
-## 🤝 Katkıda Bulun
+## 🤝 Katkıda Bulun ve Lisans
 
-Bu açık kaynaklı bir projedir. Hataları bildirmek veya yeni özellikler önermek için çekinmeden bir `Issue` açabilirsiniz.
+Bu proje **Özel (Proprietary) Lisans** ile korunmaktadır. Projeyi kopyalamak veya izinsiz dağıtmak yasaktır, ancak geliştirmeme yardımcı olabilirsiniz:
+
+- **Hata Bildirimi:** Herhangi bir sorun bulursanız `Issue` açabilirsiniz.
+- **Pull Request:** Yeni özellikler eklemek isterseniz PR gönderebilirsiniz. Onaylanan katkılar projeye dahil edilir.
+- **İletişim:** Geliştirme süreci veya izinler için benimle iletişime geçebilirsiniz.
+
+Detaylı bilgi için [LICENSE](LICENSE) dosyasına göz atabilirsiniz.
 
 ---
 
